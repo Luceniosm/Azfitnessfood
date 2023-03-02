@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <label for="txtTitulo"><b>Titulo</b></label>
+      <input type="email" class="form-control" id="txtTitulo" [(ngModel)]="termoCondicao.titulo" placeholder="Digite o Tiulo">
+    </div>
+    <div class="form-group">
+      <ckeditor [editor]="editor" [(ngModel)]="termoCondicao.descricao"></ckeditor>
+    </div>
+  </div>
+</div>
+<hr />
+<div class="form-row justify-content-end pb-5">
+  <div class="col-6 col-md-2 col-xl-2">
+    <button class="btn btn-dark btn-block" type="submit" id="btnSalvarTermo" (click)="salvar()" [disabled]="!ehValido()">
+      Salvar
+    </button>
+  </div>
+  <div class="col-6 col-md-2 col-xl-2">
+    <button id="btnVoltar" type="submit" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="d-flex navbar-cs" id="wrapper" [ngClass]="{'toggled': show==true}">
+  <div class="az-menu-wrapper" id="sidebar-wrapper">
+    <div class="list-group menu-list-group scroll">
+      <div *ngFor="let menuItem of menuItens">
+        <b> <a class="list-group-item list-group-item-action item-menu-group text-white"
+            (click)="menuLink(menuItem.titulo, menuItem.link)"><i [ngClass]="menuItem.icon" aria-hidden="true"></i>
+            {{menuItem.descricao}}</a></b>
+      </div>
+      <b><a class="list-group-item list-group-item-action item-menu-group text-white" (click)="menuLink('Home', '/')" *ngIf="!usuarioLogado"><i
+        class="fa fa-home" aria-hidden="true"></i>Home</a></b>
+      <b><a class="list-group-item list-group-item-action item-menu-group text-white" (click)="menuLink('Sair', 'login')" *ngIf="!usuarioLogado"><i
+        class="fa fa-sign-in" aria-hidden="true"></i>Login</a></b>
+      <b><a class="list-group-item list-group-item-action item-menu-group text-white" (click)="sair()" *ngIf="usuarioLogado"><i
+            class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></b>
+    </div>
+  </div>
+  <div id="page-content-wrapper" class="background-wrapper-color">
+    <nav class="navbar navbar-expand-lg fixed-top border-bottom-fix ">
+      <div class="az-menu-nav text-center align-text-bottom">
+        <a class="btn-az-menu text-white" (click)="openMenu()" role="button">
+          <i class="fa fa-bars"></i>
+        </a>
+        <a class="text-white">
+          <b>{{titulo}}</b>
+        </a>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

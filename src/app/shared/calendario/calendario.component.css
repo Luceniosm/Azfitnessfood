@@ -1,0 +1,41 @@
+  .body-calendar{
+    cursor: pointer;
+  }
+  
+  .border-calendar{
+    border-radius: 10%;
+  }
+  
+  .btn-calendar-primary{
+    background-color: #B3E3F5;
+  }
+  
+  .btn-calendar-dark{
+    background-color:#B9BCC5;
+  }
+  
+  .btn-calendar-success{
+    background-color: #C7E6B8;
+  }
+  
+  .btn-calendar-warning{
+    background-color: #FDEDC0;
+  }
+  
+  .btn-calendar-danger{
+    background-color: #F8B1B1;
+  }
+  
+  .btn-calendar-disabled{
+    color: #CECECE;
+  }
+  
+  
+  .bgn-calendar:hover{
+    background-color: #e2ded7;
+  }
+  
+  .current-date-selected
+  {
+    background-color: #f2eee8;
+  }

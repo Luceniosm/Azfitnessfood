@@ -1,0 +1,83 @@
+<div class="container mt-5 pt-5 pb-5">
+  <form [formGroup]="cardapioCadastroForm">
+    <div class="form-group row">
+      <label for="dataPedido" class="col-3 col-sm-2 col-xl-2 pl-3 col-form-label">Data</label>
+      <div class="col-sm-10">
+        <input type="date" id="dataPedido" formControlName="dataPedido" class="form-control"
+          aria-describedby="dataPedido" required />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="opcoes" class="col-3 col-sm-2 col-xl-2 pl-3 col-form-label">Digite o Titulo</label>
+      <div class="col-sm-10">
+        <input type="text " id="opcoes" formControlName="opcoes" class="form-control" aria-describedby="opcoes"
+          required />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="descricao" class="col-3 col-sm-2 col-xl-2 pl-3 col-form-label">Descrição</label>
+      <div class="col-sm-10">
+        <textarea id="descricao" class="form-control" formControlName="descricao" rows="3"
+          [ngClass]="{'is-invalid': isValid(cardapioCadastroForm.get('descricao'))}"></textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="proteinas" class="col-3 col-sm-2 col-xl-2 pl-3 col-form-label">Ordem de Visualização</label>
+      <div class="col-sm-10">
+        <input type="number" id="ordem" formControlName="ordem" class="form-control" aria-describedby="ordem"
+          required />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="proteinas" class="col-3 col-sm-2 col-xl-2 pl-3 col-form-label">Proteínas</label>
+      <div class="col-sm-10">
+        <tag-input formControlName="tags" name="items"  [modelAsStrings]="true" [separatorKeyCodes]="[32]" [theme]="'dark'"
+        placeholder="Digite as opções" ></tag-input>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="imagens" class="col-12 col-sm-2 col-md-2 col-lg-2 pl-3 col-form-label">Imagens</label>
+      <div class="col-12 col-md-4 col-xl-3 custom-file d-flex flex-column fix-mb-uploader">
+        <input type="file" id="imagens" class="d-none" accept="image/*"
+          (change)="onChange($event, cardapioCadastroForm.get('arquivos'))" multiple />
+        <input type="text" class="form-control" onclick="$('#imagens').click();"
+          style="display: none;" readonly="readonly" formControlName="arquivos" />
+        <input type="button" class="btn btn-dark btn-block" onclick="$('#imagens').click();"
+          value="Selecionar Imagens" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="card-group" formArrayName="imagens"
+        *ngFor="let item of cardapioCadastroForm.get('imagens').value; let idx = index;">
+        <div class="card border-dark mb-3" style="max-width: 18rem; margin: 20px 16px;">
+          <div class="card-header bg-transparent">
+            <button type="button" class="close" aria-label="Close" (click)="confirmExcluir(idx)">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="card-body text-dark">
+            <img style="max-width: 12rem;" src="data:{{item.mimeType}};base64,{{item.imagem}}" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row mb-3">
+      <label for="ativo" class="col-3 col-sm-2 col-xl-22 pl-3 col-form-label">Ativo</label>
+      <div class="col-2">
+        <div class="form-check">
+          <input id="ativo" class="form-check-input" type="checkbox" formControlName="ativo" />
+        </div>
+      </div>
+    </div>
+    <div class="form-row justify-content-end pb-5">
+      <div class="col-6 col-md-2 col-xl-2">
+        <button id="btnSalvar" type="submit" (click)="salvar()" class="btn btn-dark btn-block"
+          [disabled]="!cardapioCadastroForm.valid">Salvar</button>
+      </div>
+      <div class="col-6 col-md-2 col-xl-2">
+        <button id="btnVoltar" type="submit" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+      </div>
+    </div>
+  </form>
+</div>

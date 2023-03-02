@@ -1,0 +1,105 @@
+<form [formGroup]="produtoForm">
+  <div class="form-row">
+    <div class="form-group col-12">
+      <label for="titulo">Titulo</label>
+      <input type="text" class="form-control" id="titulo" formControlName="titulo">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <label for="descricao">Descrição</label>
+      <ckeditor [editor]="editor"
+        [config]="{ toolbar: [ 'heading', '|', 'bold', '|', 'bulletedList', '|', 'outdent', 'indent' ] }"
+        formControlName="descricao"></ckeditor>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12 col-md-4 col-xd-4">
+      <label for="sabor">Sabor</label>
+      <input type="text" class="form-control" id="sabor" formControlName="sabor">
+    </div>
+    <div class="form-group col-12 col-md-4 col-xd-4">
+      <label for="peso">Peso</label>
+      <input type="text" class="form-control" id="peso" formControlName="peso">
+    </div>
+    <div class="form-group col-12 col-md-4 col-xd-4">
+      <label for="marca">Marca</label>
+      <input type="text" class="form-control" id="marca" formControlName="marca">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12 col-md-4 col-xd-4">
+      <label for="quantidadeDisponivel">Quantidade Disponível</label>
+      <input type="text" class="form-control" id="quantidadeDisponivel" formControlName="quantidadeDisponivel">
+    </div>
+    <div class="form-group col-12 col-md-4 col-xd-4">
+      <label for="valor">Valor</label>
+      <input type="text" class="form-control" id="valor" formControlName="valor" currencyMask
+        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="R$">
+    </div>
+    <div class="form-group col-12 col-md-4 col-xd-4">
+      <label for="categoria">Categoria</label>
+      <select class="form-control" id="categoria" formControlName="idCategoria">
+        <option value="" disabled>Escolha uma opção</option>
+        <option *ngFor="let categoria of categorias" [ngValue]="categoria.idCategoria">
+          {{categoria.descricao}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="chkAtivo" formControlName="ativo">
+      <label class="custom-control-label" for="chkAtivo">Ativo</label>
+    </div>
+  </div>
+  <hr />
+  <div class="form-row">
+    <div class="form-group col-md-12 text-center">
+      <h4 class="mb-1">Imagens</h4>
+    </div>
+  </div>
+  <br>
+  <div class="form-group row">
+    <label for="imagens" class="col-12 col-sm-2 col-md-2 col-lg-2 pl-3 col-form-label">Imagens</label>
+    <div class="col-12 col-md-4 col-xl-3 custom-file d-flex flex-column fix-mb-uploader">
+      <input type="file" id="imagens" class="d-none" accept="image/*"
+        (change)="onChange($event, produtoForm.get('arquivos'))" multiple />
+      <input type="text" class="form-control" onclick="$('#imagens').click();"
+        style="display: none;" readonly="readonly" formControlName="arquivos" />
+      <input type="button" class="btn btn-dark btn-block" onclick="$('#imagens').click();"
+        value="Selecionar Imagens" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="card-group" formArrayName="imagens"
+      *ngFor="let item of produtoForm.get('imagens').value; let idx = index;">
+      <div class="card border-dark mb-3" style="max-width: 18rem; margin: 20px 16px;">
+        <div class="card-header bg-transparent">
+          <button type="button" class="close" aria-label="Close" (click)="confirmExcluir(idx)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="card-body text-dark">
+          <img style="max-width: 12rem;" src="data:{{item.mimeType}};base64,{{item.imagem}}" />
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="chkPrincipal{{idx}}"
+            [(ngModel)]="item.principal"
+            (change)="item.principal = !item.principal"
+            [checked]="item.principal">
+            <label class="custom-control-label" for="chkPrincipal{{idx}}">Principal</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<hr />
+<div class="form-row justify-content-end pb-5">
+  <div class="col-6 col-md-2 col-xl-2">
+    <button id="btnAtualizar" (click)="cadastrar()" [disabled]="!produtoForm.valid"
+      class="btn btn-dark btn-block">Salvar</button>
+  </div>
+  <div class="col-6 col-md-2 col-xl-2">
+    <button id="btnVoltar" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+  </div>
+</div>

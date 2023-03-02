@@ -1,0 +1,44 @@
+<div class="card mb-3">
+  <h5 class="card-header">
+    Porções
+    <span class="float-right">
+      <a href="javascript:void(0)" (click)="obterQuantitativoDePeso()"><i
+          class="fa fa-refresh fa-fw"></i></a>
+    </span>
+  </h5>
+  <div class="card-body">
+    <div class="row justify-content-md-center" *ngIf="!pesos">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="align-self-center w-100">
+      <div class="py-3">
+        <div class="row justify-content-md-center">
+          <div style="display: block;">
+            <canvas
+              baseChart
+              [data]="pieChartData"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [colors]="pieChartColors"
+              [legend]="pieChartLegend">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <table class="table mb-0">
+        <tbody>
+          <tr *ngFor="let peso of pesos">
+            <td><i class="fa fa-circle fa-fw" [ngStyle]="{ 'color': peso.color }"></i>{{peso.peso}}</td>
+            <td class="text-right">
+              {{peso.quantidade}}
+              <a href="javascript:void(0)" (click)="downloadRelatorio(peso.peso)"><i
+                class="fa fa-download fa-fw"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="form-row">
+  <div class="form-group col-md-12 text-center">
+    <h4 class="mb-1">Categorias</h4>
+  </div>
+</div>
+<hr />
+<div *ngIf="visualizarListagem">
+  <div *ngIf="categorias">
+    <div class="shadow-lg p-3 mb-3 bg-white rounded"
+      *ngFor="let item of categorias | paginate: { id:'categoria', itemsPerPage: 5, currentPage: contadorListagem }">
+      <div class="row">
+        <div class="col-md-10">
+          <span class="h6">
+            <strong>{{item.descricao}}</strong>
+          </span>
+        </div>
+        <div class="col-md-2 text-right">
+          <a href="javascript:void(0)" (click)="editar(item)">
+            Editar
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <pagination-controls *ngIf="categorias.length > 5" id="categoria" previousLabel="Anterior"
+        nextLabel="Próximo" (pageChange)="contadorListagem = $event">
+      </pagination-controls>
+    </div>
+    <hr>
+    <div class="form-row justify-content-end pb-5">
+      <div class="col-6 col-md-2 col-xl-2">
+        <button class="btn btn-dark btn-block" type="submit" id="btnFormaDePagamento" (click)="novoCategoria()">
+          Novo
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!visualizarListagem">
+<app-loja-cadastro-categoria-cadastro
+  [categoria]="categoria"
+  (visualizarListagemEmit) = "visualizarListagemEmit()">
+</app-loja-cadastro-categoria-cadastro>
+</div>

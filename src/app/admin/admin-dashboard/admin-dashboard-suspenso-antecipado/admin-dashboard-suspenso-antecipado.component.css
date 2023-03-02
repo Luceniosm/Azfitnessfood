@@ -1,0 +1,6 @@
+.chartjs-render-monitor {
+  animation: chartjs-render-animation 0.001s;
+}
+.chart canvas {
+  max-width: 100%;
+}

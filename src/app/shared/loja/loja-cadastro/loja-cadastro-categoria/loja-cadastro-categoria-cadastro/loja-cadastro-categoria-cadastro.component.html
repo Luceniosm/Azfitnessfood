@@ -1,0 +1,24 @@
+<form [formGroup]="categoriaForm">
+  <div class="form-row">
+    <div class="col-xl-12 col-md-8 mb-3">
+      <label for="nome">Descrição</label>
+      <input type="text" class="form-control" formControlName="descricao" id="descricao" placeholder="Descrição">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="chkAtivo" formControlName="ativo">
+      <label class="custom-control-label" for="chkAtivo">Ativo</label>
+    </div>
+  </div>
+</form>
+<hr />
+<div class="form-row justify-content-end pb-5">
+  <div class="col-6 col-md-2 col-xl-2">
+    <button id="btnAtualizar" (click)="cadastrar()" [disabled]="!categoriaForm.valid"
+      class="btn btn-dark btn-block">Salvar</button>
+  </div>
+  <div class="col-6 col-md-2 col-xl-2">
+    <button id="btnVoltar" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+  </div>
+</div>

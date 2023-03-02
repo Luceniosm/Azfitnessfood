@@ -1,0 +1,141 @@
+<div class="container mt-5 pt-5 pb-3" *ngIf="!pedidoFinalizado ">
+  <div class="row ">
+    <div class="col-sm-12 col-md-6 pb-3">
+      <h4>Endereço de entrega</h4>
+      <br>
+      <div *ngIf="!enderecoEntrega">
+        <a href="javascript:void(0)" (click)="cadastrarEndereco()">
+          <i class="fa fa-home"></i>
+          - Cadastrar Endereço
+        </a>
+      </div>
+      <div *ngIf="enderecoEntrega">
+        <b>{{cliente.nome}}</b>
+        <br>
+        {{enderecoEntrega.logradouro}}, {{enderecoEntrega.numero}}
+        <span *ngIf="enderecoEntrega.complemento">
+          ,{{enderecoEntrega.complemento}}
+        </span>
+        <br>
+        {{enderecoEntrega.bairro}}
+        <br>
+        {{enderecoEntrega.cidade}} - {{enderecoEntrega.uf}}
+        <br>
+        CEP: {{enderecoEntrega.cep | mask: '00000-000'}}
+        <br>
+        <br>
+        <a href="javascript:void(0)" (click)="openModal(template)">
+          <i class="fa fa-home"></i>
+          Alterar Endereço
+        </a>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 resumo-cima">
+      <div class="card h-100 shadow p-4 bg-light rounded pb-3">
+        <div class="card-body">
+          <app-loja-carrinho-resumo [taxa]="taxa"></app-loja-carrinho-resumo>
+          <br>
+          <div class="col-12 mb-2">
+            <button class="btn btn-danger btn-block" (click)="validarDados()">Finalizar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row-col-12 pb-3">
+    <h4>Opção de entrega</h4>
+    <br>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="custom-control custom-radio">
+              <input type="radio" name="formaDeEntrega" class="custom-control-input" id="chkReceber" (change)="pedidoForm.get('retirarNaLoja').setValue(false)" [checked]="true">
+              <label class="custom-control-label" for="chkReceber">
+                <p class="card-text">Receber em casa.</p>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="custom-control custom-radio">
+              <input type="radio" name="formaDeEntrega" class="custom-control-input" id="chkRetirar" (change)="pedidoForm.get('retirarNaLoja').setValue(true)">
+              <label class="custom-control-label" for="chkRetirar">
+                <p class="card-text">Retirar na loja.</p>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row-col-12 pb-3">
+    <h4>Forma de pagamento</h4>
+    <br>
+    <div class="row row-cols-1 row-cols-md-3">
+      <div class="col mb-4" *ngFor="let formaPagamento of formasDePagamentos">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="custom-control custom-radio">
+              <small>
+                <input type="radio" name="formaDePagamento" class="custom-control-input"
+                  id="{{formaPagamento.idFormaDePagamento}}"  (change)="observacao = formaPagamento.observacao; pedidoForm.get('idFormaDePagamento').setValue(formaPagamento.idFormaDePagamento); taxa = formaPagamento.porcentagemDeAcrescimo">
+                <label class="custom-control-label" for="{{formaPagamento.idFormaDePagamento}}">
+                  <p class="card-text">{{formaPagamento.descricao}}</p>
+                </label>
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="observacao">
+      <small class="card-text" [innerHTML]="observacao"></small>
+    </div>
+  </div>
+  <hr>
+  <div class="row-col-12 pb-3 mb-5 resumo-baixo">
+    <app-loja-carrinho-resumo [taxa]="taxa"></app-loja-carrinho-resumo>
+    <br>
+    <div class="col-12 mb-2">
+      <button class="btn btn-danger btn-block" (click)="validarDados()">Finalizar</button>
+    </div>
+  </div>
+</div>
+<app-loja-pedido-finalizado *ngIf="pedidoFinalizado"></app-loja-pedido-finalizado>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Alterar Endereço</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row" *ngFor="let endereco of cliente.enderecos">
+      <div class="col-12">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="custom-control custom-radio">
+              <input type="radio" name="endereco" class="custom-control-input" id="{{endereco.idUsuarioEndereco}}" (change)="alterarEndereco(endereco)">
+              <label class="custom-control-label" for="{{endereco.idUsuarioEndereco}}">
+                <p class="card-text">{{endereco.descricao}} -  {{endereco.logradouro}}, {{endereco.numero}}</p>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+
+      <a href="javascript:void(0)" (click)="cadastrarEndereco(); modalRef.hide()">
+        <i class="fa fa-home"></i>
+        - Cadastrar Endereço
+      </a>
+    </div>
+  </div>
+</ng-template>

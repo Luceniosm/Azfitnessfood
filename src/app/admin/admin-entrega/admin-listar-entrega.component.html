@@ -1,0 +1,130 @@
+<div class="container-fluid mt-5 pt-3 pb-5 ">
+  <div class="card shadow-lg mb-4">
+    <div class="card-body">
+      <form [formGroup]="form">
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="tipoPacote">Tipo</label>
+            <select class="form-control" id="tipoPacote" formControlName="idTipoPacote">
+              <option value="">Escolha uma opção</option>
+              <option *ngFor="let tipoPacote of tiposPacotes" [ngValue]="tipoPacote.idTipoPacote">
+                {{tipoPacote.descricao}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="nomeCliente">Cliente</label>
+            <input id="nomeCliente" type="text" class="form-control" formControlName="nomeCliente"
+              placeholder="Nome do cliente">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="entregador">Entregador</label>
+            <select class="form-control" id="entregador" formControlName="idEntregador">
+              <option value="">Escolha uma opção</option>
+              <option value="00000000-0000-0000-0000-000000000000">Sem Entregador</option>
+              <option *ngFor="let entregador of entregadores" [ngValue]="entregador.idUsuario">{{entregador.nome}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="dataPedido">Data</label>
+            <input type="date" id="dataPedido" formControlName="dataPedido" class="form-control" aria-describedby="data"
+              placeholder="Digite a Data" />
+          </div>
+        </div>
+        <div class="form-row justify-content-end">
+          <div class="col-6 col-md-2 col-xl-1 mb-2">
+            <button class="btn btn-dark btn-block" (click)="buscar()">Buscar</button>
+          </div>
+          <div class="col-6 col-md-2 col-xl-1 mb-2">
+            <button class="btn btn-dark btn-block" (click)="limpar()">Limpar</button>
+          </div>
+        </div>
+        <hr>
+        <div class="shadow-lg p-3 mb-3 bg-white rounded"
+          *ngFor="let item of entregas | paginate: { id:'entrega', itemsPerPage: 5, currentPage: entregasContador }">
+          <div class="row">
+            <div class="col-md-11">
+              <span class="h6">
+                <strong>{{item.nomeCliente}}</strong>
+              </span>
+              <span class="d-block">
+                <span class="badge rounded-pill bg-secondary text-white mr-2">
+                  {{item.quantidadeRefeicao}} - Refeições
+                </span>
+                <span class="badge rounded-pill bg-secondary text-white mr-2">
+                  {{item.formaDePagamento}}
+                </span>
+                <span class="badge rounded-pill bg-secondary text-white mr-2">
+                  {{item.endereco}}
+                </span>
+                <span class="badge rounded-pill bg-secondary text-white mr-2" *ngIf="!item.lgRetiradaNoLocal">
+                  Entregador: {{item.nomeEntregador ? item.nomeEntregador : " - "}}
+                </span>
+                <span class="badge rounded-pill bg-warning text-white mr-2" *ngIf="item.lgAntecipacao">
+                  Antecipado
+                </span>
+                <span class="badge rounded-pill bg-danger text-white mr-2" *ngIf="item.lgRetiradaNoLocal">
+                  Retirada no local
+                </span>
+                <br>
+                <span *ngFor="let complemento of item.complementos">
+                  <span class="badge rounded-pill bg-secondary text-white mr-2">
+                    <span *ngIf="complemento.lgOpcional">Adicional - {{complemento.quantidade}}</span>
+                    <span *ngIf="!complemento.lgOpcional">{{complemento.quantidade}} - </span>
+                    {{complemento.descricao}}
+                    <span class="d-inline" *ngFor="let item of complemento.itens">
+                      {{item.descricao}}
+                   </span>
+                  </span>
+
+                </span>
+              </span>
+            </div>
+            <div class="col-md-1">
+              <div class="btn-group" dropdown>
+                <button id="button-basic" dropdownToggle type="button"
+                  class="btn btn-outline-dark btn-sm  dropdown-toggle" aria-controls="dropdown-basic">
+                  Opções <span class="caret"></span>
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                  <li role="menuitem">
+                    <a class="dropdown-item" href="javascript:void(0)" (click)="alterarEntregador(item, entregador)">
+                      <i class="az-ico-entregas mx-2"></i>
+                      Entregador
+                    </a>
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item" href="javascript:void(0)" (click)="notificarConfirmacaoPagamento(item)">
+                      <i class="fa fa-dollar mx-2"></i>
+                      Confirmar
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <pagination-controls *ngIf="entregas.length > 5" id="entrega" previousLabel="Anterior" nextLabel="Próximo"
+            (pageChange)="entregasContador = $event">
+          </pagination-controls>
+        </div>
+        <div class="form-row justify-content-end" *ngIf="entregas?.length !== 0 && !habilitarRelatorio">
+          <div class="col-12 col-md-2 col-xl-2">
+            <button class="btn btn-dark btn-block" type="submit" id="btnNovoCliente" (click)="gerarRelatorio()">
+              Relatório
+            </button>
+          </div>
+        </div>
+        <div class="form-row justify-content-end" *ngIf="entregas?.length !== 0 && habilitarRelatorio"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ng-template #entregador let-c="close" let-d="dismiss">
+  <app-admin-entrega-alterar-entregador [formEntrega]="formEntrega" [entregadores]="entregadores"
+    (fecharModal)="fecharModal()" (atualizarGrid)="atualizarGrid()">
+  </app-admin-entrega-alterar-entregador>
+</ng-template>

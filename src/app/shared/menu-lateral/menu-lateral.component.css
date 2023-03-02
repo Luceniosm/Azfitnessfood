@@ -1,0 +1,119 @@
+.navbar-cs {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.navbar{
+  padding: .8rem .5rem !important;
+}
+
+/*div::scroolbars*/
+.az-menu-wrapper div::-webkit-scrollbar {
+  width: 2px;
+}
+.az-menu-wrapper div::-webkit-scrollbar-track {
+  background: #cccccc;
+  border-radius: 10px;
+}
+.az-menu-wrapper div::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #222;
+}
+
+#sidebar-wrapper {
+  position: fixed;
+  z-index: 9999;
+  min-height: calc(100% - 50px);
+  margin-top: 50px;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+
+  -webkit-box-shadow: 0px -3px 6px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px -3px 6px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px -3px 6px 0px rgba(0,0,0,0.75);
+  background-color: rgba(0,0,0,0.95);
+}
+#sidebar-wrapper .list-group{
+  overflow-y: auto;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  height: 40px;
+  margin-top: 10px;
+  line-height: 40px;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+.navbar {
+  justify-content: start !important;
+}
+
+.az-menu-nav {
+    width: 100%;
+}
+.az-menu-nav-left{
+  margin-left: 10px;
+  float: left;
+}
+
+.btn-az-menu{
+  float: left;
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+.background-wrapper-color {
+  margin-left: -1px;
+}
+.list-group-flush .list-group-item{
+  background-color: transparent;
+}
+
+.menu-list-group {
+  color: #FFF;
+  padding: 10px;
+  /* height: 85%; */
+}
+.list-group-item{
+  padding: .50rem 1rem;
+}
+
+.item-menu-group {
+  margin-bottom: 5px;
+  background-color: transparent;
+}
+
+.item-menu-group:hover {cursor: pointer; opacity: 1; }
+.item-menu-group:after {
+    border-right: 0.1em solid #FFF;
+    border-bottom: 0.1em solid #FFF;
+    content: "";
+    display: inline-block;
+    height: 0.5em;
+    width: 0.5em;
+    float: right;
+    margin-top: 0.5em;
+
+    -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+}
+
+.list-group-item i {
+  margin-right: 6px;
+}

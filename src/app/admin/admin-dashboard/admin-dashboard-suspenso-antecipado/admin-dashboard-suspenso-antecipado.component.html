@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="card mb-3">
+      <h5 class="card-header">
+        Antecipados
+        <span class="float-right">
+          <a href="javascript:void(0)" (click)="obterPedidosSuspensosAntecipados()"><i
+              class="fa fa-refresh fa-fw"></i></a>
+          <a href="javascript:void(0)" (click)="downloadClientesPedidosAntecipados()"><i
+              class="fa fa-download fa-fw"></i></a>
+        </span>
+      </h5>
+      <div class="card-body" style="height: 400px;">
+        <div class="row justify-content-md-center" *ngIf="!pedido">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="table-responsive-md" *ngIf="pedido">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th class="text-center">Contato</th>
+                <th class="text-center">Entregador</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of pedido.clientesAntecipados | paginate: { id:'antecipado', itemsPerPage: 5, currentPage: contadorDelistagemAntecipado }">
+                <td>{{item.nome}}</td>
+                <td class="text-center">{{item.telefone | mask: "(00) 00000-0000"}}</td>
+                <td>{{item.entregador}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center">
+            <pagination-controls *ngIf="pedido?.clientesAntecipados.length > 5" id="antecipado" previousLabel="Anterior"
+              nextLabel="Próximo" (pageChange)="contadorDelistagemAntecipado = $event"></pagination-controls>
+          </div>
+        </div>
+        <div *ngIf="pedido?.clientesAntecipados.length === 0" class="text-center">
+          <span>
+            <alert type="info">Nenhum pedido antecipado.</alert>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card mb-3">
+      <h5 class="card-header">
+        Suspensos
+        <span class="float-right">
+          <a href="javascript:void(0)" (click)="obterPedidosSuspensosAntecipados()"><i
+              class="fa fa-refresh fa-fw"></i></a>
+          <a href="javascript:void(0)" (click)="downloadClientesPedidosSuspensos()"><i
+              class="fa fa-download fa-fw"></i></a>
+        </span>
+      </h5>
+      <div class="card-body" style="height: 400px;">
+        <div class="row justify-content-md-center" *ngIf="!pedido">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="table-responsive-md" *ngIf="pedido">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th class="text-center">Contato</th>
+                <th class="text-center">Entregador</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of pedido.clientesSuspensos | paginate: { id:'suspenso', itemsPerPage: 5, currentPage: contadorDelistagemSuspenso }">
+                <td>{{item.nome}}</td>
+                <td class="text-center">{{item.telefone | mask: "(00) 00000-0000"}}</td>
+                <td>{{item.entregador}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center">
+            <pagination-controls *ngIf="pedido?.clientesSuspensos.length > 5" id="suspenso" previousLabel="Anterior"
+              nextLabel="Próximo" (pageChange)="contadorDelistagemSuspenso = $event"></pagination-controls>
+          </div>
+        </div>
+        <div *ngIf="pedido?.clientesSuspensos.length === 0" class="text-center">
+          <span>
+            <alert type="info">Nenhum pedido suspenso.</alert>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,267 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+
+html {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  line-height: 40px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+/************************* CONTENT ICONS *************************/
+
+@font-face {
+  font-family: "az-ico";
+  src: url("assets/az-fonts/az-fonts.ttf?v83eyrs") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="az-ico"],
+[class*=" az-ico"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "az-ico" !important;
+  speak-as: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.az-ico-office:before {
+  content: "\e1001";
+}
+
+.az-ico-spoon-knife:before {
+  content: "\e1002";
+}
+
+.az-ico-earth:before {
+  content: "\e1003";
+}
+
+.az-ico-logo:before {
+  content: "\e1004";
+}
+
+.az-ico-endereco:before {
+  content: "\e1005";
+}
+
+.az-ico-fechar:before {
+  content: "\e1006";
+  color: #e00d0d;
+}
+
+.az-ico-pacote:before {
+  content: "\e1007";
+}
+
+.az-ico-menu:before {
+  content: "\e1008";
+}
+
+.az-ico-cardapio:before {
+  content: "\e1009";
+}
+
+.az-ico-contato:before {
+  content: "\e1010";
+}
+
+.az-ico-meu-perfil:before {
+  content: "\e1011";
+}
+
+.az-ico-alterar-senha:before {
+  content: "\e1012";
+}
+
+.az-ico-entregas:before {
+  content: "\e1013";
+}
+
+.az-ico-entregador:before {
+  content: "\e1014";
+}
+
+.az-ico-calendario:before {
+  content: "\e1015";
+}
+
+.az-ico-contrato:before {
+  content: "\e1016";
+}
+
+.az-ico-ajuste:before {
+  content: "\e1017";
+}
+
+/************************* STYLES AZ FITNESS FOOD MENU LATERAL *************************/
+.navbar {
+  background: #000 !important;
+}
+.logo-max {
+  max-width: 200px !important;
+}
+
+a:link {
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+a:hover {
+  color: #1a2817;
+}
+
+a:active {
+  color: #1a2817;
+}
+
+/************************* SORTABLE TABLE *************************/
+th[sortable] {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+th[sortable].desc:before,
+th[sortable].asc:before {
+  content: "";
+  display: block;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAmxJREFUeAHtmksrRVEUx72fH8CIGQNJkpGUUmakDEiZSJRIZsRQmCkTJRmZmJgQE0kpX0D5DJKJgff7v+ru2u3O3vvc67TOvsdatdrnnP1Y///v7HvvubdbUiIhBISAEBACQkAICAEhIAQ4CXSh2DnyDfmCPEG2Iv9F9MPlM/LHyAecdyMzHYNwR3fdNK/OH9HXl1UCozD24TCvILxizEDWIEzA0FcM8woCgRrJCoS5PIwrANQSMAJX1LEI9bqpQo4JYNFFKRSvIgsxHDVnqZgIkPnNBM0rIGtYk9YOOsqgbgepRCfdbmFtqhFkVEDVPjJp0+Z6e6hRHhqBKgg6ZDCvYBygVmUoEGoh5JTRvIJwhJo1aUOoh4CLPMyvxxi7EWOMgnCGsXXI1GIXlZUYX7ucU+kbR8NW8lh3O7cue0Pk32MKndfUxQFAwxdirk3fHappAnc0oqDPzDfGTBrCfHP04dM4oTV8cxr0SVzH9FF07xD3ib6xCDE+M+aUcVygtWzzbtGX2rPBrEUYfecfQkaFzYi6HjVnGBdtL7epqAlc1+jRdAap74RrnPc4BCijttY2tRcdN0g17w7HqZrXhdJTYAuS3hd8z+vKgK3V1zWPae0mZDMykadBn1hTQBLnZNwVrJpSe/NwEeDsEwCctEOsJTsgxLvCqUl2ACftEGvJDgjxrnBqkh3ASTvEWrIDQrwrnJpkB3DSDrGW7IAQ7wqnJtkBnLRztejXXVu4+mxz/nQ9jR1w5VB86ejLTFcnnDwhzV+F6T+CHZlx6THSjn76eyyBIOPHyDakhBAQAkJACAgBISAEhIAQYCLwC8JxpAmsEGt6AAAAAElFTkSuQmCC")
+    no-repeat;
+  background-size: 22px;
+  width: 22px;
+  height: 22px;
+  float: left;
+  /* margin-left: -22px; */
+}
+
+th[sortable].desc:before {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+}
+
+/************************* AJUSTE NA FORMATACAO *************************/
+.footer {
+  height: initial !important;
+  line-height: initial !important;
+}
+
+.footer[_ngcontent-c2] {
+  font-size: 16px !important;
+  padding: 19px 0px 18px;
+}
+
+.footer[_ngcontent-c2] i {
+  font-size: 17px !important;
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+  }
+  app-footer {
+    display: none;
+  }
+  .page-break {
+    page-break-inside: avoid;
+  }
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.btn-client-principal {
+  width: 100% !important;
+  margin: 14px !important;
+}
+
+.btn-cardapio {
+  background-color: #fbc531;
+  color: #906900 !important;
+}
+.btn-cardapio:hover {
+  cursor: pointer;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) !important;
+}
+
+.btn-Loja {
+  background-color: #4e4d48;
+  color: #fdfdfd !important;
+}
+.btn-Loja:hover {
+  cursor: pointer;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) !important;
+}
+
+.btn-endereco {
+  background-color: #bde4f4;
+  color: #3285a6 !important;
+}
+.btn-endereco:hover {
+  cursor: pointer;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) !important;
+}
+
+.btn-pacote {
+  background-color: #aed09e;
+  color: #61894e !important;
+}
+.btn-pacote:hover {
+  cursor: pointer;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) !important;
+}
+
+.btn-menu {
+  background-color: #ded5c4;
+  color: #7f745e !important;
+}
+.btn-menu:hover {
+  cursor: pointer;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) !important;
+}
+
+
+.custom-control-input:checked~.custom-control-label::before {
+  color: #fff;
+  border-color: #000;
+  background-color: #000;
+}
+/*===========================================
+                Hyago Rios
+    ===========================================*/
+
+@media (max-width: 576px) {
+  .btn-client-principal {
+    margin: 10px 0 !important;
+  }
+}

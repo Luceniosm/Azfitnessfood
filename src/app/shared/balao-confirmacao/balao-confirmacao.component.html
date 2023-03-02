@@ -1,0 +1,16 @@
+<div class="modal-body text-center">
+  <p [innerHTML]="message">?</p>
+  <div class="row row-cols-2 justify-content-center">
+    <div class="col col-md-4 col-lg-2" *ngIf="!alert">
+      <button id="btnNao" type="submit" (click)="decline()" class="btn btn-danger  btn-block">
+        {{btnCancelText}}
+      </button>
+    </div>
+    <div class="col col-md-4 col-lg-2">
+      <button id="btnSim" type="submit" (click)="confirm()" class="btn btn-dark btn-block">
+        {{btnOkText}}
+      </button>
+    </div>
+  </div>
+</div>
+

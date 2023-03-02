@@ -1,0 +1,107 @@
+<div *ngIf="!mostrarItemDoComplemento">
+  <form [formGroup]="complementoForm">
+    <div class="form-row">
+      <div class="form-group col-12 ">
+        <label for="descricaoComplemento">Descrição</label>
+        <input type="text" class="form-control" id="descricaoComplemento" formControlName="descricao">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-4 col-xd-4">
+        <label for="valorComplemento">Valor</label>
+        <input type="text" class="form-control" id="valorComplemento" formControlName="valor" currencyMask
+          [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="R$">
+      </div>
+      <div class="form-group col-12 col-md-4 col-xd-4">
+        <label for="peso">Peso</label>
+        <input type="number" class="form-control" id="peso" formControlName="peso">
+      </div>
+      <div class="form-group col-12 col-md-4 col-xd-4">
+        <label for="quantidadeComplemento">Quantidade Máxima</label>
+        <input type="number" class="form-control" id="quantidadeComplemento" formControlName="quantidadeMaxima">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-8 col-xd-8">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="chkAtivoComplmento" formControlName="lgAtivo">
+          <label class="custom-control-label" for="chkAtivoComplmento">Ativo</label>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 col-xl-4">
+        <button class="btn btn-dark btn-block" id="btnItemDoComplemento" id="btnItemDoComplemento"
+          (click)="adicionarItemDoComplemento()">
+          Item do Complemento
+        </button>
+      </div>
+    </div>
+    <br>
+    <div *ngIf="complementoForm.get('itensDoComplemento').value.length > 0">
+      <hr>
+      <div class="shadow-lg p-3 mb-3 bg-white rounded"
+        *ngFor="let item of complementoForm.get('itensDoComplemento').value | paginate: { id:'itemDoComplemento', itemsPerPage: 3, currentPage: itemDoComplementoContador }; let i = index;">
+        <div class="row">
+          <div class="col-md-10">
+            <span class="h6">
+              <strong>{{item.descricao}}</strong>
+            </span>
+            <span class="d-block">
+              <span class="badge rounded-pill bg-secondary text-white mr-2" >
+                {{item.lgAtivo ? "Ativo" : "Destivado"}}
+              </span>
+              <span class="badge rounded-pill bg-secondary text-white mr-2">
+                {{item.valor | currency:'BRL'}}
+              </span>
+            </span>
+          </div>
+          <div class="col-md-2 text-right">
+            <div class="btn-group" dropdown>
+              <button id="button-animated" dropdownToggle type="button"
+                class="btn btn-outline-dark btn-sm dropdown-toggle" aria-controls="dropdown-animated">
+                Opções <span class="caret"></span>
+              </button>
+              <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+                aria-labelledby="button-animated">
+                <li role="menuitem">
+                  <a class="dropdown-item" (click)="editarItemDoComplemento(item)" href="javascript:void(0)">
+                    <i class="fa fa-pencil mx-2"></i>
+                    Editar
+                  </a>
+                </li>
+                <li role="menuitem" *ngIf="item.idItemDoComplemento === guid">
+                  <a class="dropdown-item" (click)="excluirItemDoComplemento(item)" href="javascript:void(0)">
+                    <i class="fa fa-trash-o mx-2"></i>
+                    Excluir
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <pagination-controls *ngIf="complementoForm.get('itensDoComplemento').value.length > 3" id="itemDoComplemento"
+          previousLabel="Anterior" nextLabel="Próximo" (pageChange)="itemDoComplementoContador = $event">
+        </pagination-controls>
+      </div>
+    </div>
+
+    <hr>
+    <div class="form-row justify-content-end pb-5">
+      <div class="col-6 col-md-2 col-xl-2">
+        <button id="btnSalvar" [disabled]="!complementoForm.valid" class="btn btn-dark btn-block"
+          (click)="salvar()">Salvar</button>
+      </div>
+      <div class="col-6 col-md-2 col-xl-2">
+        <button id="btnVoltar" type="submit" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+      </div>
+    </div>
+  </form>
+
+</div>
+<div *ngIf="mostrarItemDoComplemento">
+  <app-admin-pacote-categoria-complemento-item
+  (voltarComplementoEmit)="voltarComplemento()"
+  (salvarItemComplementoEmit)="salvarItemComplemento($event)">
+  </app-admin-pacote-categoria-complemento-item>
+</div>

@@ -1,0 +1,20 @@
+.profile-back {
+  background-color: red;
+  height: 100px;
+  margin-bottom: -50px;
+}
+
+.profile-card {
+  text-align: left;
+  margin-bottom: 15px;
+  border: 1px solid red;
+}
+
+.rounded-cicle {
+  border-radius: 50% !important;;
+}
+
+ing {
+  vertical-align: middle;
+  border-style: none;
+}

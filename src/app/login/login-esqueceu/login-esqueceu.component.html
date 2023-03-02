@@ -1,0 +1,48 @@
+<app-login-titulo class="titulo" [titulo]="'ESQUECEU A SUA SENHA?'"></app-login-titulo>
+<div class="container mt-5 pt-5 pb-3">
+  <div class="row justify-content-md-center">
+    <div class="col col-xl-6 col-lg-6 col-md-12">
+      <div class="col align-self-center" *ngIf="hideForm">
+        <div class="text-left">
+          <a>Informe o seu e-mail cadastrado para receber as instruções de recuperação da senha</a>
+        </div>
+        <br />
+        <form [formGroup]="loginEsqueceuForm" (ngSubmit)="confirmar()">
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <div class="input-group">
+              <div class="input-group-prepend ">
+                <span class="input-group-text bg-transparent border-right-0">
+                  <i class="fa fa-at" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input type="email" id="email" formControlName="email" class="form-control  border-left-0"
+                aria-describedby="email" placeholder="Digite o seu email cadastrado" required />
+            </div>
+            <small id="emailHelp" *ngIf="isFieldInvalid('email')" class="form-text text-muted">
+              Este campo é obrigatório!
+            </small>
+          </div>
+          <div class="form-group">
+            <button id="btnConfirmarEsqueceu" [disabled]="!loginEsqueceuForm.valid" class="btn btn-dark btn-block"
+              type="submit">Enviar</button>
+
+          </div>
+        </form>
+      </div>
+      <div class="col align-self-center text-center" *ngIf="!hideForm">
+        <div class="card-body">
+          <p class="card-text">E-mail enviado com sucesso! Verificar a nova senha que deverá ser utilizado em seu login
+          </p>
+          <br />
+          <div class="text-center">
+            <button id="btnLogin" [routerLink]="['/login']" class="btn btn-dark btn-block" type="submit">
+              Realizar login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

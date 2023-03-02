@@ -1,0 +1,33 @@
+<form [formGroup]="itemForm">
+  <div class="form-row">
+    <div class="form-group col-12 ">
+      <label for="descricaoAdicional">Descrição</label>
+      <input type="text" class="form-control" id="descricaoAdicional" formControlName="descricao">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12 col-md-4 col-xd-4">
+      <label for="valorAdicional">Valor</label>
+      <input type="text" class="form-control" id="valorAdicional" formControlName="valor"
+      currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="R$">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12 col-md-10 col-xd-10">
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="chkAtivoAdicional" formControlName="lgAtivo">
+        <label class="custom-control-label" for="chkAtivoAdicional">Ativo</label>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="form-row justify-content-end pb-5">
+    <div class="col-6 col-md-2 col-xl-2">
+      <button id="btnSalvarAdicional" [disabled]="!itemForm.valid" class="btn btn-dark btn-block"
+        (click)="salvar()">Salvar</button>
+    </div>
+    <div class="col-6 col-md-2 col-xl-2">
+      <button id="btnVoltarAdicional" type="submit" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+    </div>
+  </div>
+</form>

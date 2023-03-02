@@ -1,0 +1,13 @@
+@media (min-width: 992px) {
+  .columns {
+    display: flex!important;
+  }
+}
+
+.columns {
+  display: none;
+}
+
+.colorIncrementDecrement{
+  background-color: #f5f5f5;
+}

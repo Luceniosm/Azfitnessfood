@@ -1,0 +1,129 @@
+<div class="form-row">
+  <div class="form-group col-md-12 text-center">
+    <h4 class="mb-1">Endereços</h4>
+  </div>
+</div>
+<hr />
+<div *ngIf="!visualizarListagem">
+  <form [formGroup]="enderecoForm">
+    <div class="form-row">
+      <div class="col-md-12 mb-3">
+        <label for="descricao">Descrição</label>
+        <input type="text" class="form-control" formControlName="descricao" id="descricao"
+          [ngClass]="{'is-invalid': isValid(enderecoForm.get('descricao'))}" placeholder="Descrição">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-10 mb-3">
+        <label for="cep">Cep</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" formControlName="cep" placeholder="00000-000" maxlength="9"
+            mask="00000-000" (focusout)="consultaCep()" [ngClass]="{'is-invalid': isValid(enderecoForm.get('cep'))}"
+            aria-label="Recipient's username" aria-describedby="buscar" (keydown.enter)="consultaCep(); false;">
+          <div class="input-group-append">
+            <span class="input-group-text"><i class="fa fa-search"></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="lgPrincipal">Principal</label>
+        <div class="form-checkbox">
+          <input type="checkbox" formControlName="lgPrincipal" id="lgPrincipal">
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-10 mb-3">
+        <label for="logradouro">Rua</label>
+        <input type="text" class="form-control" formControlName="logradouro" id="logradouro"
+          [ngClass]="{'is-invalid': isValid(enderecoForm.get('logradouro'))}" placeholder="Digite o nome da rua">
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="numero">Numero</label>
+        <input type="text" class="form-control" formControlName="numero" id="numero" placeholder="Nº"
+          [ngClass]="{'is-invalid': isValid(enderecoForm.get('numero'))}">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-12 mb-3">
+        <label for="bairro">Bairro</label>
+        <input type="text" class="form-control" formControlName="bairro" id="Bairro"
+          [ngClass]="{'is-invalid': isValid(enderecoForm.get('bairro'))}" placeholder="Digite o nome do bairro">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-12 mb-3">
+        <label for="complemento">Complemento</label>
+        <input type="text" class="form-control" formControlName="complemento" id="complemento"
+          placeholder="Digite o Complemento">
+      </div>
+    </div>
+  </form>
+  <hr />
+  <div class="form-row justify-content-end pb-5">
+    <div class="col-6 col-md-2 col-xl-2">
+      <button class="btn btn-dark btn-block" type="submit" id="btnSalvar" (click)="salvar()"
+        [disabled]="!enderecoForm.valid">
+        Salvar
+      </button>
+    </div>
+    <div class="col-6 col-md-2 col-xl-2">
+      <button class="btn btn-dark btn-block" type="submit" id="btnVoltar" (click)="voltar()">
+        Voltar
+      </button>
+    </div>
+  </div>
+</div>
+<div *ngIf="visualizarListagem">
+  <div *ngIf="enderecos">
+    <div class="shadow-lg p-3 mb-3 bg-white rounded"
+      *ngFor="let item of enderecos | paginate: { id:'endereco', itemsPerPage: 5, currentPage: contadorDelistagem }">
+      <div class="row">
+        <div class="col-md-10">
+          <span class="h6">
+            <strong>{{item.descricao}}</strong>
+          </span>
+          <span class="d-block">
+            <span class="badge rounded-pill bg-secondary text-white">
+              Rua: {{item.logradouro}} - {{item.bairro}}, {{item.numero}}
+            </span> &nbsp;
+            <span class="badge rounded-pill bg-secondary text-white">
+              Principal: {{item.lgPrincipal? 'Sim' : 'Não'}}
+            </span><br>
+          </span>
+        </div>
+        <div class="col-md-2 text-right">
+          <div class="btn-group" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-dark btn-sm  dropdown-toggle"
+              aria-controls="dropdown-basic">
+              Opções <span class="caret"></span>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)" (click)="editar(item)">
+                  <i class="fa fa-pencil mx-2"></i>
+                  Editar
+                </a></li>
+              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)" (click)="excluir(item.idUsuarioEndereco)">
+                  <i class="fa fa-trash-o mx-2"></i>
+                  Excluir
+                </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <pagination-controls *ngIf="enderecos.length > 5" id="endereco" previousLabel="Anterior" nextLabel="Próximo"
+        (pageChange)="contadorDelistagem = $event">
+      </pagination-controls>
+    </div>
+  </div>
+  <hr />
+  <div class="form-row justify-content-end pb-5">
+    <div class="col-6 col-md-2 col-xl-2">
+      <button class="btn btn-dark btn-block" type="submit" id="btnNovo" (click)="novo()">
+        Novo
+      </button>
+    </div>
+  </div>
+</div>

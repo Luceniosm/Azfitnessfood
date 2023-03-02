@@ -1,0 +1,41 @@
+
+  <div class="col-md-12 text-center mb-3">
+    Informe a quantidade de refeições <b> a mais </b>para cada dia selecionado. <br>
+    Obs: <b>Refeição do dia '+' quantidade</b>
+    <br>Cada quantidade adicionada, é menos um pacote a receber.
+  </div>
+  <div class="row justify-content-md-center pb-3">
+    <div class="col col-xl-6 col-lg-6 col-md-12">
+      <div *ngFor="let item of formAntecipacao.get('datasSelecionadas').value; index as i">
+        <div class="row justify-content-md-center mb-2">
+          <div class="col col-md-4">
+            <input type="text" readonly class="form-control-plaintext"
+              value="{{item.data | date: 'dd/MM/yyyy'}}">
+          </div>
+          <div class="col col-md-4">
+            <input type="number" class="form-control"  [(ngModel)]="item.quantidade">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-md-center pb-3">
+    <div class="col col-xl-6 col-lg-6 col-md-12 text-center">
+      <small id="emailHelp" *ngIf="validarQuantidade() > quantidadeDisponivel" class="form-text text-muted">
+        Quantidade maior que disponível
+      </small>
+    </div>
+  </div>
+  <div class="row row-cols-2 justify-content-center pb-5">
+    <div class="col col-md-4 col-lg-2">
+      <button id="btnConfirmarCadastro" type="submit" (click)="voltar()" class="btn btn-dark btn-block">
+        Voltar
+      </button>
+    </div>
+    <div class="col col-md-4 col-lg-2">
+      <button id="btnConfirmarCadastro" type="submit" (click)="notificarconfirmacaoAntecipacao()" [disabled]="(validarQuantidade() > quantidadeDisponivel)" class="btn btn-dark btn-block">
+        Confirmar
+      </button>
+    </div>
+  </div>
+

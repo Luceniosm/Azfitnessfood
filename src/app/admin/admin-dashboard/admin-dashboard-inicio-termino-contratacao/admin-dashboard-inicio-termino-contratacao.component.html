@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="card mb-3">
+      <h5 class="card-header">
+        Novos
+        <span class="float-right">
+          <a href="javascript:void(0)" (click)="obterContratadosNovosEncerradosPorData()"><i
+              class="fa fa-refresh fa-fw"></i></a>
+          <a href="javascript:void(0)" (click)="downloadContratosNovos()"><i class="fa fa-download fa-fw"></i></a>
+        </span>
+      </h5>
+      <div class="card-body" style="height: 400px;">
+        <div class="row justify-content-md-center" *ngIf="!contratacao">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="table-responsive-md" *ngIf="contratacao">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th class="text-center">Contato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of contratacao.contratosNovos | paginate: { id:'novo', itemsPerPage: 5, currentPage: novoContador }">
+                <td>{{item.nome}}</td>
+                <td class="text-center">{{item.telefone | mask: "(00) 00000-0000"}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center">
+            <pagination-controls *ngIf="contratacao?.contratosNovos.length > 0" id="novo" previousLabel="Anterior"
+              nextLabel="Próximo" (pageChange)="novoContador = $event"></pagination-controls>
+          </div>
+        </div>
+        <div *ngIf="contratacao?.contratosNovos.length === 0" class="text-center">
+          <span>
+            <alert type="info">Nenhum contrato novo.</alert>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card mb-3">
+      <h5 class="card-header">
+        Encerrados
+        <span class="float-right">
+          <a href="javascript:void(0)" (click)="obterContratadosNovosEncerradosPorData()"><i
+              class="fa fa-refresh fa-fw"></i></a>
+          <a href="javascript:void(0)" (click)="downloadContratosEncerrados()"><i class="fa fa-download fa-fw"></i></a>
+        </span>
+      </h5>
+      <div class="card-body" style="height: 400px;">
+        <div class="row justify-content-md-center" *ngIf="!contratacao">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="table-responsive-md" *ngIf="contratacao">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th class="text-center">Contato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of contratacao.contratosEncerrados | paginate: {  id:'encerrado', itemsPerPage: 5, currentPage: encerradoContador }">
+                <td>{{item.nome}}</td>
+                <td class="text-center">{{item.telefone | mask: "(00) 00000-0000"}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center">
+            <pagination-controls *ngIf="contratacao?.contratosEncerrados.length > 0" previousLabel="Anterior"
+              nextLabel="Próximo" id="encerrado" (pageChange)="encerradoContador = $event"></pagination-controls>
+          </div>
+        </div>
+        <div *ngIf="contratacao?.contratosEncerrados.length === 0" class="text-center">
+          <span>
+            <alert type="info">Nenhum contrato encerrado.</alert>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

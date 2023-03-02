@@ -1,0 +1,25 @@
+<app-login-titulo class="align-middle" botaoVoltar="True"></app-login-titulo>
+<div class="container mt-5 pt-5 pb-3">
+  <div class="text-center">
+    <img src="assets/img/logo.png" class="img-responsive text-center logo-max" alt="Responsive image">
+  </div>
+  <div class="col align-self-center text-center" *ngIf="hideForm">
+    <div class="mt-4 mb-4">
+      <p class="card-text">Confirmando email!</p>
+    </div>
+  </div>
+  <div class="col align-self-center text-center" *ngIf="!hideForm">
+    <div class="card-body">
+      <p class="card-text">E-mail confirmado com sucesso!</p>
+      <p class="card-text">Obrigado, você já pode acessar nosso sistema!</p>
+      <div class="row justify-content-md-center">
+        <div class="col-md-4">
+          <button id="btnLogin" [routerLink]="['/login']" class="btn btn-dark btn-block" type="submit">
+            Realizar login
+          </button>
+        </div>
+      </div>
+      <br />
+    </div>
+  </div>
+</div>

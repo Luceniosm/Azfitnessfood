@@ -1,0 +1,38 @@
+<div class="container mt-5 pt-4 pb-3 p-0">
+  <div class="row justify-content-md-center">
+    <div class="col-12" *ngIf="cardapiosDiario.length == 0">
+      <alert class="text-center" type="info"><span>Cardápio não disponível</span></alert>
+    </div>
+    <div class="col col-xl-6 col-lg-6 col-md-12">
+      <div class="row-col-12">
+        <tabset type="pills" #staticTabs customClass="bg-dark" justified="true">
+          <tab *ngFor="let item of cardapiosDiario; let idx = index;">
+            <ng-template tabHeading>
+              {{item.titulo}}
+              <small><span *ngIf="item.lgPadrao" class="fa fa-check-circle"></span></small>
+            </ng-template>
+            <carousel>
+              <div class="text-center pt-3">
+                <slide *ngFor="let img of item.cardapioImagens; let idx = index;">
+                  <div class="row justify-content-center">
+                    <div class="col-lg-6 col-6">
+                      <img class="img-thumbnail img-fluid border-0" src="data:{{img.mimeType}};base64,{{img.imagem}}"
+                        alt="">
+                    </div>
+                  </div>
+                </slide>
+              </div>
+            </carousel>
+            <hr />
+            <div class="row-col-12">
+              <h6><b>Descrição:</b></h6>
+            </div>
+            <div class="row-col-12">
+              <p>{{ item.descricao }}</p>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

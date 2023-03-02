@@ -1,0 +1,49 @@
+<div class="form-row">
+  <div class="form-group col-md-12 text-center">
+    <h4 class="mb-1">Formas de pagamento</h4>
+  </div>
+</div>
+<hr />
+<div *ngIf="visualizarListagem">
+  <div *ngIf="formasDePagamento">
+    <div class="shadow-lg p-3 mb-3 bg-white rounded"
+      *ngFor="let item of formasDePagamento | paginate: { id:'formaDePagamento', itemsPerPage: 5, currentPage: formaDePagamentoContador }">
+      <div class="row">
+        <div class="col-md-10">
+          <span class="h6">
+            <strong>{{item.descricao}}</strong>
+          </span>
+          <span class="d-block">
+            <span class="badge rounded-pill bg-secondary text-white">Acrécimo:
+              {{item.porcentagemDeAcrescimo > 0 ? item.porcentagemDeAcrescimo + "%":  "Não"}}</span> &nbsp;
+            <span class="badge rounded-pill bg-secondary text-white">Ativa: {{item.lgAtivo ? "Sim" : "Não"}}</span>
+          </span>
+        </div>
+        <div class="col-md-2 text-right">
+          <a href="javascript:void(0)" (click)="editar(item)">
+            Editar
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <pagination-controls *ngIf="formasDePagamento.length > 5" id="formaDePagamento" previousLabel="Anterior"
+        nextLabel="Próximo" (pageChange)="formaDePagamentoContador = $event">
+      </pagination-controls>
+    </div>
+    <hr>
+    <div class="form-row justify-content-end pb-5">
+      <div class="col-6 col-md-2 col-xl-2">
+        <button class="btn btn-dark btn-block" type="submit" id="btnFormaDePagamento" (click)="novoFormaDePagamento()">
+          Novo
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!visualizarListagem">
+<app-admin-configuracao-forma-pagamento-cadastro
+  [formaDePagamento]="formaDePagamento"
+  (visualizarListagemEmit) = "visualizarListagemEmit()">
+</app-admin-configuracao-forma-pagamento-cadastro>
+</div>

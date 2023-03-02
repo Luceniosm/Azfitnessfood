@@ -1,0 +1,36 @@
+<div class="container-fluid mt-5 pt-3 pb-5 ">
+  <div class="card shadow-lg mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12 col-md-2 col-xd-12 mb-3">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
+              href="#list-home" role="tab" aria-controls="home">Dados Pessoais</a>
+            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
+              href="#list-profile" role="tab" aria-controls="profile">Endereços</a>
+            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list"
+              href="#list-messages" role="tab" aria-controls="messages">Contratos</a>
+            <a class="list-group-item list-group-item-action" id="list-pedido-list" data-toggle="list"
+              href="#list-pedido" role="tab" aria-controls="pedido">Pedidos</a>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-10  col-xd-12">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+              <app-admin-cliente-dados-pessoais></app-admin-cliente-dados-pessoais>
+            </div>
+            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+              <app-admin-cliente-endereco></app-admin-cliente-endereco>
+            </div>
+            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+              <app-admin-cliente-contrato></app-admin-cliente-contrato>
+            </div>
+            <div class="tab-pane fade" id="list-pedido" role="tabpanel" aria-labelledby="list-pedido-list">
+              <app-pedido [cssContainer]="'container-fluid'"></app-pedido>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

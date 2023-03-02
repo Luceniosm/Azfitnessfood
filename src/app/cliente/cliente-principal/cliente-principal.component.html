@@ -1,0 +1,54 @@
+<div class="container mt-2 pt-5 pb-5">
+  <div class="row justify-content-md-center">
+    <div class="col col-xl-6 col-lg-6 col-md-12">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-6">
+          <img class="img-thumbnail img-fluid border-0" src="././././assets/img/logo.png" alt="">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 d-flex align-items-stretch">
+          <a class="btn btn-client-principal btn-cardapio rounded p-4" (click)="menuLink('cardapio')">
+            <span class="az-ico-cardapio fa-4x"></span><br />
+            <b>Cárdapio do </b>
+              <br>
+            <b>dia</b>
+          </a>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 d-flex align-items-stretch">
+          <a class="btn btn-client-principal btn-menu rounded p-4" (click)="menuLink('menu')">
+            <i class="az-ico-contrato fa-5x"></i><br />
+            <b>
+              Contratar
+              <br>
+              Pacote
+            </b>
+          </a>
+        </div>
+
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 d-flex align-items-stretch">
+          <a class="btn btn-client-principal btn-pacote rounded p-4" (click)="menuLink('pacote')">
+            <i class="az-ico-ajuste fa-4x"></i><br />
+            <b>
+              Ajuste de
+              <br>
+              Pacote
+            </b>
+          </a>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 d-flex align-items-stretch">
+          <a class="btn btn-client-principal btn-endereco rounded p-4" (click)="menuLink('endereco')">
+            <i class="az-ico-endereco fa-4x"></i><br />
+            <b>Endereço</b>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-12 text-center">
+      <small>Versão: {{versao}}</small>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="container mt-5 pt-5 pb-5">
+  <form [formGroup]="filtroForm">
+    <div class="form-row">
+      <div class="form-group col-12 col-md-10 col-xd-10">
+        <label for="descricao">Descrição</label>
+        <input type="text" class="form-control" id="descricao" formControlName="descricao" placeholder="Descrição">
+      </div>
+      <div class="form-group col-12 col-md-2 col-xd-2">
+        <label for="status">Status</label>
+        <select class="form-control" id="status" formControlName="lgAtivo">
+          <option value="true">Ativo</option>
+          <option value="false">Desativo</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row justify-content-end">
+      <div class="col-6 col-md-2 col-xl-2 mb-2">
+        <button class="btn btn-dark btn-block" (click)="listar()">Buscar</button>
+      </div>
+      <div class="col-6 col-md-2 col-xl-2 mb-2">
+        <button class="btn btn-dark btn-block" (click)="buildForm()">Limpar</button>
+      </div>
+    </div>
+  </form>
+  <hr>
+  <div *ngIf="pacotes">
+    <div class="shadow-lg p-3 mb-3 bg-white rounded"
+      *ngFor="let item of pacotes | paginate: { id:'pacote', itemsPerPage: 5, currentPage: contadorDelistagem }">
+      <div class="row">
+        <div class="col-md-10">
+          <span class="h6">
+            <strong>{{item.titulo}}</strong>
+          </span>
+          <span class="d-block">
+            <span class="badge rounded-pill bg-secondary text-white ">
+              {{item.tipo}}
+            </span>&nbsp;
+            <span class="badge rounded-pill bg-secondary text-white ">
+              {{item.quantidade}} Refei<span *ngIf="item.quantidade > 1">ções</span><span
+                *ngIf="item.quantidade == 1">ção</span>
+            </span>&nbsp;
+            <span class="badge rounded-pill bg-secondary text-white">
+              {{item.lgAtivo ? "Ativo" : "Desativado"}}
+            </span>&nbsp;
+            <span class="badge rounded-pill bg-secondary text-white mr-2" *ngFor="let categoria of item.categorias">
+              {{categoria}}
+            </span>
+          </span>
+        </div>
+        <div class="col-md-2 text-right">
+          <div class="btn-group" dropdown>
+            <button id="button-animated" dropdownToggle type="button"
+              class="btn btn-outline-dark btn-sm dropdown-toggle" aria-controls="dropdown-animated">
+              Opções <span class="caret"></span>
+            </button>
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" (click)="editar(item.idPacote)" href="javascript:void(0)">
+                  <i class="fa fa-pencil mx-2"></i>
+                  Editar
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="item.lgAtivo">
+                <a class="dropdown-item" (click)="inativar(item)" href="javascript:void(0)">
+                  <i class="fa fa-ban mx-2"></i>
+                  Inativar
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="!item.lgAtivo">
+                <a class="dropdown-item" (click)="ativar(item)" href="javascript:void(0)">
+                  <i class="fa fa-check mx-2"></i>
+                  Ativar
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" (click)="duplicar(item.idPacote)" href="javascript:void(0)">
+                  <i class="fa fa-copy mx-2"></i>
+                  Duplicar
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <pagination-controls *ngIf="pacotes.length > 5" id="pacote" previousLabel="Anterior" nextLabel="Próximo"
+        (pageChange)="contadorDelistagem = $event">
+      </pagination-controls>
+    </div>
+  </div>
+  <div *ngIf="pacotes.length === 0" class="text-center">
+    <span>
+      <alert type="info">Nenhum pacote cadastrado.</alert>
+    </span>
+  </div>
+  <hr>
+  <div class="form-row justify-content-end pb-5">
+    <div class="col-12 col-md-2 col-xl-2">
+      <button class="btn btn-dark btn-block" id="btnAdicionaPacote" id="btnAdicionaCardapio"
+        [routerLink]="['cadastro']">
+        Novo
+      </button>
+    </div>
+  </div>
+</div>

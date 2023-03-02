@@ -1,0 +1,61 @@
+<div class="card mb-3">
+  <h5 class="card-header">
+    Dieta
+    <span class="float-right">
+      <a href="javascript:void(0)" (click)="obterQuantitativoDeDietas()"><i
+          class="fa fa-refresh fa-fw"></i></a>
+    </span>
+  </h5>
+  <div class="card-body">
+    <div class="row justify-content-md-center" *ngIf="!dieta">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="align-self-center w-100" *ngIf="dieta">
+      <div class="py-3">
+        <div class="row justify-content-md-center">
+          <div style="display: block; width: 333px; height: 181px;">
+            <canvas
+              baseChart
+              [data]="pieChartData"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [colors]="pieChartColors"
+              [legend]="pieChartLegend">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <table class="table mb-0">
+        <tbody>
+          <tr>
+            <td><i class="fa fa-circle text-primary fa-fw"></i>LowCarb</td>
+            <td class="text-right">
+              {{dieta.lowCarb}}
+              <a href="javascript:void(0)" (click)="downloadClientesRelatorio(EnumDieta.lowCarb)"><i
+                class="fa fa-download fa-fw"></i></a>
+
+            </td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-circle text-warning fa-fw"></i>Saladas 250</td>
+            <td class="text-right">
+              {{dieta.saladas250}}
+              <a href="javascript:void(0)" (click)="downloadClientesRelatorio(EnumDieta.salada250)"><i
+                class="fa fa-download fa-fw"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-circle text-danger fa-fw"></i>Saladas 500</td>
+            <td class="text-right">
+              {{dieta.saladas500}}
+              <a href="javascript:void(0)" (click)="downloadClientesRelatorio(EnumDieta.salada500)"><i
+                class="fa fa-download fa-fw"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

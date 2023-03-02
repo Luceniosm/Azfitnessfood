@@ -1,0 +1,23 @@
+<div class="container mt-5 pt-5">
+  <full-calendar
+  #calendario
+  defaultView="dayGridMonth"
+  [plugins]="calendarPlugins"
+  [events]="datasCalendario"
+  (dateClick)="handleDateClick($event, template)"
+  (eventClick)="eventClick($event, template)"
+  locale="pt-br"
+  [buttonText] = "{today: 'Hoje'}"
+></full-calendar>
+</div>
+<div class="mt-5 pt-5"></div>
+<ng-template #template>
+  <app-admin-calendario-modal
+  [dataSelecionada]="dataSelecionada"
+  [modalRef]="modalRef"
+  [excecaoAtendimento]="excecaoAtendimento"
+  (adicionarEventEmit)="adicionarEventEmit($event)"
+  (atualizarEventEmit)="atualizarEventEmit($event)"
+  (excluirEventEmit)="excluirEventEmit($event)"
+  ></app-admin-calendario-modal>
+</ng-template>

@@ -1,0 +1,67 @@
+
+  <div class="form-row">
+    <div class="form-group col-md-12 text-center">
+      <h4 class="mb-1">Dias da semana de funcionamento</h4>
+    </div>
+  </div>
+  <hr />
+  <form [formGroup]="formCadastro">
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label for="data">Hora Inicio</label>
+        <input type="time" id="horaInicio" class="form-control" formControlName="horaInicio" />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="data">Hora Fim</label>
+        <input type="time" id="horaFim" class="form-control" formControlName="horaFim" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="data">Descrição</label>
+        <input type="text" id="descricao" class="form-control" formControlName="descricao" />
+        <input type="hidden" id="IdHorario" class="form-control" formControlName="idHorarioDaSemana" />
+      </div>
+      <div class="col col-md-4 col-lg-2 my-4 pt-2">
+        <button type="submit" [disabled]="!formCadastro.valid" (click)="adicionar()"
+          class="btn btn-dark btn-block">Adicionar</button>
+      </div>
+    </div>
+  </form>
+  <hr>
+  <form [formGroup]="formHorario">
+    <div class="form-row" formArrayName="horarios">
+      <div class="col col-sm-6 col-md-2" *ngFor="let horario of formHorario.controls.horarios.value; index as i">
+        <div class="form-row">
+          <label for="data" class="col-12 text-center"><b>{{horario.descricao}}</b></label>
+        </div>
+        <div class="form-row">
+          <label for="data" class="col-12 text-center"><b>{{horario.horaInicio}} - {{horario.horaFim}}</b></label>
+        </div>
+        <div class="custom-control custom-switch" *ngFor="let dia of horario.diasDaSemana; index as idx">
+          <input type="checkbox" class="custom-control-input" id="{{i}}{{idx}}" [checked]="dia.expediente"
+            (change)="checado(dia)">
+          <label class="custom-control-label" for="{{i}}{{idx}}">- {{dia.descricao}}</label>
+        </div>
+        <div class="form-row mt-3 justify-content-md-center">
+          <div class="col col-sm-6 col-md-6 col-lg-4">
+            <button (click)="editar(horario, i)" type="button" class="btn btn-dark btn-block"><i
+                class="fa fa-pencil mx-2"></i></button>
+          </div>
+          <div class="col col-sm-6 col-md-6 col-lg-4">
+            <button (click)="excluir(i)" type="button" class="btn btn-dark btn-block"><i
+                class="fa fa-trash-o mx-2"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr *ngIf="formHorario.get('horarios').value.length > 0">
+    <div class="form-row justify-content-end pb-5" *ngIf="formHorario.get('horarios').value.length > 0">
+      <div class="col-12 col-md-2 col-xl-2">
+        <button class="btn btn-dark btn-block" type="submit" id="btnNovoCliente" (click)="salvar()">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </form>
+

@@ -1,0 +1,216 @@
+<div class="container-fluid mt-5 pt-5 pb-3" *ngIf="!mostrarCadastroEndereco && !contratoFinalizado">
+  <div *ngIf="pacote === undefined">
+    <div *ngFor="let pacoteAgrupado of pacotesAgrupados">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h3 class="mb-1">{{pacoteAgrupado.tipoPacote}}</h3>
+          <img src="assets/img/titulo_contratacao.png" alt="">
+        </div>
+      </div>
+      <br>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
+        <div class="col mb-4" *ngFor="let pacote of pacoteAgrupado.pacotes">
+          <div class="card h-100">
+            <img src="data:{{pacote.imagemDoPacote.mimeType}};base64,{{pacote.imagemDoPacote.imagem}}"
+              *ngIf="pacote.imagemDoPacote !== null" style="width: 9rem;"
+              class="img-thumbnail mx-auto d-block border-0 p-2" alt="...">
+            <img class="rounded mx-auto d-block" src="assets/img/logo.png" alt="Card image cap"
+              *ngIf="pacote.imagemDoPacote === null" style="width: 9rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{pacote.titulo}}</h5>
+              <small class="card-text" [innerHTML]="pacote.descricao"></small>
+            </div>
+            <button type="button" class="btn btn-danger btn-lg btn-block card-footer bg-danger"
+              (click)="comprar(pacote)">Comprar</button>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+    <br><br>
+  </div>
+  <div *ngIf="pacote !== undefined">
+    <form [formGroup]="contratoForm">
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-12">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card">
+                    <img src="data:{{pacote.imagemDoPacote.mimeType}};base64,{{pacote.imagemDoPacote.imagem}}"
+                      *ngIf="pacote.imagemDoPacote !== null" style="width: 9rem;"
+                      class="img-thumbnail mx-auto d-block border-0 p-2" alt="...">
+                    <img class="rounded mx-auto d-block" src="././././assets/img/logo.png" alt="Card image cap"
+                      *ngIf="pacote.imagemDoPacote === null" style="width: 9rem;">
+                    <div class="card-body">
+                      <h5 class="card-title text-center">{{pacote.titulo}}</h5>
+                      <small class="card-text" [innerHTML]="pacote.descricao"></small>
+                      <div class="col-12 p-2">
+                        <span class="badge badge-danger badge-pill col-12 p-2" role="button" (click)="voltar()">
+                          Alterar opção
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <app-contratar-pacote-categoria [categorias]="pacote.categorias" [pacote]="pacote">
+                  </app-contratar-pacote-categoria>
+                  <div>
+                    <h5 class="card-title text-center">Informações de entrega</h5>
+                    <dl class="row">
+                      <dt class="col-8">Retirar</dt>
+                      <dd class="col-4 text-right">
+                        <div class="custom-control custom-radio">
+                          <input type="radio" name="formaDeEntrega" class="custom-control-input" id="chkTaxaIsenta"
+                            (change)="contratoForm.get('taxaDeEntrega').setValue(0)">
+                          <label class="custom-control-label" for="chkTaxaIsenta"> R$ 0,00</label>
+                        </div>
+                      </dd>
+
+                    </dl>
+                    <dl class="row">
+                      <dt class="col-8">Receber</dt>
+                      <dd class="col-4 text-right">
+                        <div class="custom-control custom-radio">
+                          <input type="radio" name="formaDeEntrega" class="custom-control-input"
+                            (change)="contratoForm.get('taxaDeEntrega').setValue(pacote.taxaDeEntrega)" id="chkTaxa">
+                          <label class="custom-control-label" for="chkTaxa">{{pacote.taxaDeEntrega |
+                            currency:'BRL'}}</label>
+                        </div>
+                      </dd>
+
+                    </dl>
+                    <dl class="row">
+                      <dt class="col-5 col-md-8">
+                        Data Inicio
+                      </dt>
+                      <dd class="col-7 col-md-4 text-right">
+                        <input type="date" class="form-control form-control-sm" formControlName="dataInicio"
+                          list="dataInicio">
+                        <datalist id="dataInicio">
+                          <option *ngFor="let data of dataParaIniciarPacote.datasParaInicioPacote">
+                            {{data | date: 'yyyy-MM-dd'}}</option>
+                        </datalist>
+                      </dd>
+                    </dl>
+                  </div>
+                  <hr>
+                  <div>
+                    <h5 class="card-title text-center">Opção de Pagamento</h5>
+                    <select class="custom-select my-1 col-12" id="slididFormaDePagamento"
+                      formControlName="idFormaDePagamento" (change)="selecionarForma()">
+                      <option>Escolha uma opção</option>
+                      <option *ngFor="let forma of formasDePagamentos" [ngValue]="forma.idFormaDePagamento">
+                        {{forma.descricao}}
+                      </option>
+                    </select>
+                    <div class="alert alert-warning" *ngIf="observacaoFormaDePagamento" role="alert">
+                      {{observacaoFormaDePagamento}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div>
+                    <h5 class="card-title text-center">Observação</h5>
+                    <textarea class="form-control" id="observacoes" rows="3" formControlName="observacao"
+                      placeholder="Descreva se possui alguma restrição alimentar"></textarea>
+                  </div>
+                  <hr>
+
+                </div>
+                <div class="col-md-4">
+                  <div [ngClass]="cssPagamento">
+
+                    <!-- <div>
+                      <h5 class="card-title text-center">Cupom Desconto</h5>
+                      <div class="row">
+                        <div class="col-8 text-right">
+                          <input type="text" id="codigoCupom" formControlName="codigoCupom" class="form-control"
+                            aria-describedby="cupom" placeholder="Digite o codigo" />
+                        </div>
+                        <div class="col-4">
+                          <button type="button" class="btn btn-danger btn-block" (click)="aplicarCupom()">Aplicar</button>
+                        </div>
+                      </div>
+                      <hr>
+                    </div> -->
+                    <div>
+                      <h5 class="card-title text-center">Total</h5>
+                      <div class="row">
+                        <div class="col-6 font-weight-bold">SubTotal</div>
+                        <div class="col-6 text-right">{{calcularSubTotal() | currency:'BRL'}}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6 font-weight-bold">Adicional</div>
+                        <div class="col-6 text-right">{{calcularAdicional() | currency:'BRL'}}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6 font-weight-bold">Taxa de entrega</div>
+                        <div class="col-6 text-right">{{contratoForm.get('taxaDeEntrega').value | currency:'BRL'}}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6 font-weight-bold">Taxa do Cartão: </div>
+                        <div class="col-6 text-right">{{calcularFormaDePagamento() | currency:'BRL'}}</div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-6 text-truncate font-weight-bold">Total</div>
+                        <div class="col-6 text-right">{{calcularTotal() | currency:'BRL'}}</div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6 text-truncate font-weight-bold">Renovar Automatico</div>
+                        <div class="col-6 text-right">
+                          <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="lgRevonacaoAutomatica"
+                              formControlName="lgRevonacaoAutomatica">
+                            <label class="custom-control-label" for="lgRevonacaoAutomatica"></label>
+                          </div>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-12 text-center">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="chkTermoECondicao"
+                              formControlName="lgTermoAceito">
+                            <label class="custom-control-label" for="chkTermoECondicao">
+                              <a href="javascript:void(0)" (click)="openModal(template)">Aceito os termos e
+                                condições</a>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-12 mb-2">
+                          <button class="btn btn-danger btn-block" [disabled]="!contratoForm.valid"
+                            (click)="validarCadastroDeEndereco()">Confirmar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Termos e Condições</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div [innerHTML]="pacote.termosECondicoes"></div>
+  </div>
+</ng-template>
+<app-contratar-pacote-contratado *ngIf="contratoFinalizado" (voltarEmit)="voltar()"></app-contratar-pacote-contratado>

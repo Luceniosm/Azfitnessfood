@@ -1,0 +1,61 @@
+<div class="container pt-2 pb-5">
+  <form [formGroup]="formAntecipacao">
+    <div id="grid-antecipacao" *ngIf="exibirListagem">
+      <app-cliente-pacote-contratado
+      (selecionarPacoteEmitter)="selecionarPacote($event)"
+      (pacotesContratadosEmitter)="carregarPacotesContratados($event)"
+      [lgCarregarContracaoDiario]="false"
+      >
+      </app-cliente-pacote-contratado>
+    </div>
+    <div *ngIf="!exibirListagem">
+      <app-shared-wizard [steps]="steps"></app-shared-wizard>
+    </div>
+    <div id="solicita-antecipacao" #clientePacoteAnteciparEtapaEnum
+      *ngIf="!exibirListagem && clientePacoteAnteciparEtapaEnum.selecionaAntecipacao === etapaSelecionada">
+        <div class="col-md-12 text-center mb-3">
+          Clique para selecionar os dias que deseja antecipar.
+        </div>
+      <app-cliente-pacote-antecipar-calendario
+        (datasSelecionadasEmite)="datasSelecionadasEmite($event)"
+        (quantidadeDisponivelEmite)="quantidadeDisponivelEmite($event)"
+        [idContratacaoPacote]="formAntecipacao.get('idContratacaoPacote').value"
+        (selecioneEtapaEmite)="selecioneEtapaEmite($event)"
+        (voltarListagemEmite)="voltarListagemEmite()">
+      </app-cliente-pacote-antecipar-calendario>
+    </div>
+    <div id="solicita-antecipacao" #clientePacoteAnteciparEtapaEnum
+      *ngIf="!exibirListagem && clientePacoteAnteciparEtapaEnum.quantidadeRefeicao === etapaSelecionada">
+      <app-cliente-pacote-antecipar-quantidade
+      [formAntecipacao]="formAntecipacao"
+      [quantidadeDisponivel]="quantidadeDisponivel"
+      (selecioneEtapaEmite)="selecioneEtapaEmite($event)"
+      (confirmarAntecipacaoEmite)="confirmarAntecipacaoEmite()">
+      </app-cliente-pacote-antecipar-quantidade>
+    </div>
+    <div id="solicita-antecipacao" #clientePacoteAnteciparEtapaEnum
+      *ngIf="!exibirListagem && clientePacoteAnteciparEtapaEnum.concluir === etapaSelecionada">
+      <div class="row justify-content-md-center text-center pb-5">
+        <div class="col col-xl-6 col-lg-6 col-md-12">
+          <h4>Antecipação confirmada com sucesso</h4>
+          <hr>
+          <div class="row justify-content-md-center">
+            <div class="col col-md-4 text-center"><b>Data</b></div>
+            <div class="col col-md-4 text-center"><b>Quantidade</b></div>
+          </div>
+          <div class="row justify-content-md-center" *ngFor="let item of formAntecipacao.get('datasSelecionadas').value;">
+            <div class="col col-md-4 text-center">{{item.data | date: 'dd/MM/yyy'}}</div>
+            <div class="col col-md-4 text-center">{{item.quantidade}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-md-center pb-5">
+        <div class="col col-md-4">
+          <button id="btnVoltarListagemAntecipacao" type="submit" (click)="voltarListagemEmite()" class="btn btn-dark btn-block">
+            Voltar para listagem
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

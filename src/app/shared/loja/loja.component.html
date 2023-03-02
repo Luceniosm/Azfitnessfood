@@ -1,0 +1,58 @@
+<div class="container-fluid mt-5 pt-2 pb-3">
+  <app-loja-carrinho-item-contador></app-loja-carrinho-item-contador>
+  <div *ngIf="categoriasProduto !== undefined">
+    <div class="row " *ngFor="let categoria of categoriasProduto">
+      <div class="col-md-12 h-100">
+        <div class="text-center mt-5">
+          <h3 class="mb-1">{{categoria.categoria}}</h3>
+          <img src="assets/img/titulo_contratacao.png" alt="">
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-3 mb-2" *ngFor="let produto of categoria.produtos">
+            <div class="card h-100 shadow p-3  bg-white rounded">
+              <div class="button" (click)="detalharProduto(produto)">
+                <img src="data:{{produto.imagem.mimeType}};base64,{{produto.imagem.imagem}}"
+                  *ngIf="produto.imagem !== null" style="width: 9rem;"
+                  class="img-thumbnail mx-auto d-block border-0 p-2" alt="...">
+                <img class="rounded mx-auto d-block" src="assets/img/logo.png" alt="Card image cap"
+                  *ngIf="produto.imagem === null" style="width: 9rem;">
+
+                <div class="card-body ">
+                  <div class="row">
+                    <h6 class="card-title">{{produto.titulo}}</h6>
+                  </div>
+                  <div class="row">
+                    <h4>{{produto.valor | currency:'BRL' }}</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-transparent">
+                <div class="row">
+                  <div class="col col-xs-12 col-sm-6 col-md-12 col-lg-6 text-center rounded-pill colorIncrementDecrement mb-2">
+                    <small>
+                      <div class="btn bg-light b-0" (click)="decrementarProduto(produto)">
+                        <i class="fa fa-minus" aria-hidden="true"></i>
+                      </div>
+                      <input type="text" aria-label="Small"
+                        class="col-3 p-0 border-0 text-center text-dark bg-transparent" [value]="0" [disabled]="true"
+                        [(ngModel)]="produto.quantidadeSelecionada" aria-describedby="inputGroup-sizing-sm">
+                      <div class="btn bg-light" (click)="incrementarProduto(produto)">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                      </div>
+                    </small>
+                  </div>
+                  <div class="col col-xs-12 col-sm-5 col-md-6 offset-md-1  col-lg-4 text-right">
+                    <button type="button" class="btn btn-danger bg-danger"
+                      (click)="adicionarProduto(produto)">Adicionar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+</div>

@@ -1,0 +1,162 @@
+<div class="container-fluid mt-5 pt-3 pb-5 ">
+  <div class="card shadow-lg mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-2 col-xd-4 mb-4">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
+              href="#list-home" role="tab" aria-controls="home">Detalhes</a>
+            <a class="list-group-item list-group-item-action" id="list-categoria-list" data-toggle="list"
+              href="#list-categoria" role="tab" aria-controls="categoria">Categoria</a>
+          </div>
+        </div>
+        <div class="col-12 col-md-7 col-xd-7">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+              <div class="form-row">
+                <div class="form-group col-md-12 text-center">
+                  <h4 class="mb-1">Detalhes</h4>
+                </div>
+              </div>
+              <hr>
+              <form [formGroup]="pacoteForm">
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <label for="titulo">Titulo</label>
+                    <input type="text" class="form-control" id="titulo" formControlName="titulo">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <label for="descricao">Descrição do Pacote</label>
+                    <ckeditor [editor]="editor"
+                      [config]="{ toolbar: [ 'heading', '|', 'bold', '|', 'bulletedList', '|', 'outdent', 'indent' ] }"
+                      formControlName="descricao"></ckeditor>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <label for="observacao">Observação (Relátorio de entrega)</label>
+                    <textarea id="descricao" class="form-control" formControlName="observacao" rows="3"></textarea>
+
+
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-12 col-md-4 col-xd-4">
+                    <label for="quantidade">Quantidade de Refeições</label>
+                    <input type="text" class="form-control" id="quantidade"
+                      formControlName="quantidade">
+                  </div>
+                  <div class="form-group col-12 col-md-4 col-xd-4">
+                    <label for="diasConsumacao">Consumação (em dias)</label>
+                    <input type="number" class="form-control" id="diasConsumacao" formControlName="diasConsumacao">
+                  </div>
+                  <div class="form-group col-12 col-md-4 col-xd-4">
+                    <label for="diasValidade">Validade do Pacote (em dias)</label>
+                    <input type="number" class="form-control" id="diasValidade" formControlName="diasValidade">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-12 col-md-4 col-xd-4">
+                    <label for="taxaDeEntrega">Taxa de Entrega</label>
+                    <input type="text" class="form-control" id="taxaDeEntrega" formControlName="taxaDeEntrega"
+                    currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="R$">
+                  </div>
+                  <div class="form-group col-12 col-md-4 col-xd-4">
+                    <label for="valorAdicional">Valor Adicional</label>
+                    <input type="text" class="form-control" id="valorAdicional" formControlName="valorAdicional"
+                    currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="R$">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-12 col-md-4 col-xd-4">
+                    <label for="tipoDoPacote">Tipo</label>
+                    <select class="form-control" id="tipoPacote" formControlName="idTipoPacote">
+                      <option value="" disabled>Escolha uma opção</option>
+                      <option *ngFor="let tipoPacote of tiposPacote" [ngValue]="tipoPacote.idTipoPacote">
+                        {{tipoPacote.descricao}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-12 col-md-4 col-xd-4">
+                    <label for="termosCondicoes">Termo</label>
+                    <select class="form-control" id="termosCondicoes" formControlName="idTermoCondicao">
+                      <option value="" disabled>Escolha uma opção</option>
+                      <option *ngFor="let termoECondicao of termosCondicoes" [ngValue]="termoECondicao.idTermoCondicao">
+                        {{termoECondicao.titulo}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-12 col-md-4 col-xd-4">
+                    <label for="imagemDoPacote">Foto do menu</label>
+                      <input type="file" id="imagemDoPacote" class="invisible" accept="image/*" style="display: none;"
+                        (change)="onChange($event, filesName)"/>
+                      <input type="text" #filesName class="form-control col-12" onclick="$('#imagemDoPacote').click();" readonly="readonly"  style="display: none;" />
+                      <input type="button" class="btn btn-dark btn-block col-12" onclick="$('#imagemDoPacote').click();" value="Selecionar imagem"  />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="chkAtivo" formControlName="lgAtivo">
+                    <label class="custom-control-label" for="chkAtivo">Ativo</label>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="chkEnviaNotificacao" formControlName="lgEnviaNotificacao" [checked]="pacoteForm.value.lgEnviaNotificacao">
+                    <label class="custom-control-label" for="chkEnviaNotificacao">Enviar Notificações</label>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="chkRenovacao" formControlName="lgRenovacao" [checked]="pacoteForm.value.lgRenovacao">
+                    <label class="custom-control-label" for="chkRenovacao">Renovacao</label>
+                  </div>
+                </div>
+                <hr>
+                <div class="form-row justify-content-end pb-5">
+                  <div class="col-6 col-md-2 col-xl-2">
+                    <button id="btnSalvar" [disabled]="!pacoteForm.valid" class="btn btn-dark btn-block"
+                    (click)="salvar()">Salvar</button>
+                  </div>
+                  <div class="col-6 col-md-2 col-xl-2">
+                    <button id="btnVoltar" type="submit" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="tab-pane fade show" id="list-categoria" role="tabpanel" aria-labelledby="list-categoria-list">
+              <app-admin-pacote-categoria [categorias]="pacoteForm.get('categorias').value" [idPacote]="idPacote" (atualizarCategoriasEmit)="atualizarCategorias($event)"></app-admin-pacote-categoria>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="device">
+            <div class="p-4">
+              <div class="row pb-3">
+                <div class="col-12 text-center">
+                  <img src="assets/img/logo.png" alt="Avatar" class="avatar" *ngIf="pacoteForm.get('imagemDoPacote').value === null || pacoteForm.get('imagemDoPacote').value === ''">
+                  <img src="data:{{pacoteForm.get('imagemDoPacote').value.mimeType}};base64,{{pacoteForm.get('imagemDoPacote').value.imagem}}"  alt="Avatar" class="avatar" *ngIf="pacoteForm.get('imagemDoPacote').value !== null && pacoteForm.get('imagemDoPacote').value !== ''">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 text-center">
+                  <h4>
+                    {{pacoteForm.get('titulo').value}}
+                  </h4>
+                  <hr>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="small" [innerHTML]="pacoteForm.get('descricao').value"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

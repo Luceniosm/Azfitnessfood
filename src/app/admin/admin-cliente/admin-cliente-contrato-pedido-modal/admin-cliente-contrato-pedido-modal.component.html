@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Pedido</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <br>
+</div>
+<div class="modal-body">
+  <form [formGroup]="pedidoForm">
+    <div class="form-group row">
+      <label for="tipoPedido" class="col-sm-4 col-form-label">Opção</label>
+      <div class="col-sm-8">
+        <select class="form-control" id="tipoPedido" formControlName="tipoPedido">
+          <option value="">Escolha uma opção</option>
+          <option value="1">Normal</option>
+          <option value="2">Antecipar</option>
+          <option value="3">Suspender</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputDataDoPedido" class="col-sm-4 col-form-label">Data do Pedido</label>
+      <div class="col-sm-8">
+        <input type="date" readonly class="form-control" id="inputDataDoPedido" formControlName="dataDoPedido">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="staticObservacao" class="col-sm-4 col-form-label">Observação do Cliente</label>
+      <div class="col-sm-8">
+        <textarea id="observacao" class="form-control" formControlName="observacao" id="staticObservacao" rows="3"></textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="staticJustificativa" class="col-sm-4 col-form-label">Justificativa</label>
+      <div class="col-sm-8">
+        <textarea id="justificativa" class="form-control" formControlName="justificativa" id="staticJustificativa" rows="3"></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button id="btnExcluir" type="button" class="btn btn-danger" (click)="confirmarExclusao()" *ngIf="pedidoSelecionado">Excluir</button>
+  <button id="btnSair" type="button" class="btn btn-dark" (click)="modalRef.hide()">Sair</button>
+  <button id="btnSalvar" type="button" class="btn btn-dark" (click)="salvar()" [disabled]="!pedidoForm.valid" >Salvar</button>
+</div>

@@ -1,0 +1,11 @@
+<div class="wizard-container">
+  <ul class="wizard-container-ul">
+    <li *ngFor="let ep of steps" class="wizard-container-li {{ep.class}}">
+      <div class="step-div">
+        <span class="step-bg"></span>
+        <span class="step-body"><i class="{{ep.icon}}"></i></span>
+        <span class="step-title">{{ep.title}}</span>
+      </div>
+    </li>
+  </ul>
+</div>

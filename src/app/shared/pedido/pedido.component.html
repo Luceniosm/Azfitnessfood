@@ -1,0 +1,88 @@
+<div [ngClass]="cssContainer">
+  <div class="row justify-content-md-left">
+    <div class="col-12">
+      <h4>Pedidos</h4>
+      <hr>
+      <div class="row mb-3" *ngFor="let pedido of pedidos; let i = index">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-10">
+                  <h6>
+                    Realizado em: {{pedido.dataPedido | date: 'dd/MM/yyyy'}}
+                    <span *ngIf="pedido.statusPedido ===1" class="text-primary">- em andamento</span>
+                    <span *ngIf="pedido.statusPedido ===2" class="text-success">- Entrege</span>
+                    <span *ngIf="pedido.statusPedido ===3" class="text-danger">-  Cancelado</span>
+
+                  </h6>
+                </div>
+
+                <div class="col-2 text-right bg-transparent">
+                  <a data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true"
+                    aria-controls="collapseOne" href="javascript:void(0)" (click)="isCollapsed[i] = !isCollapsed[i]">
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div [attr.id]="'collapse'+i" class="collapse">
+                    <br>
+                    <div class="row mb-2" *ngFor="let item of pedido.itens">
+                      <div class="col-3">
+                        <picture>
+                          <img src="data:{{item.imagem.mimeType}};base64,{{item.imagem.imagem}}"
+                            *ngIf="item.imagem !== null" style="width: 9rem;"
+                            class="img-thumbnail mx-auto d-block border-0 p-2" alt="...">
+                          <img class="rounded mx-auto d-block" src="assets/img/logo.png" alt="Card image cap"
+                            *ngIf="item.imagem === null" style="width: 9rem;">
+                        </picture>
+                      </div>
+                      <div class="col-9">
+                        {{item.descricaoProduto}} <br>
+                        <small class="text-muted">Quantidade: {{item.quantidade}}</small>
+                        <br>
+                        <small class="text-muted">{{item.quantidade * item.valor | currency:'BRL'}}</small><br>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-4 border-right">
+                        <h6>Forma de pagamento</h6>
+                        <p>{{pedido.formaDePagamento}}</p>
+                      </div>
+                      <div class="col-sm-12 col-md-4 border-right">
+                        <h6>Total Pago</h6>
+                        <p>
+                          Quantidade: {{quantidadeDeProdutos(pedido.itens)}} <br>
+                          Total: {{valorTotalProdutos(pedido.itens) | currency: 'BRL'}}
+                        </p>
+                      </div>
+                      <div class="col-sm-12 col-md-4">
+                        <h6>Entrega</h6>
+                        <p>
+                          {{pedido.endereco}}
+                        </p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row row-cols-2 justify-content-center" *ngIf="pedido.statusPedido === 1">
+                      <div class="col-sm-12 col-md-4">
+                        <button id="btnVoltarListagemAntecipacao" (click)="confirmarCancelarPedido(pedido.idPedido)"
+                          class="btn btn-danger btn-block">
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

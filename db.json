@@ -1,0 +1,197 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "loginCadastro": [
+    {
+      "nome": "Lucenio Marques",
+      "cpf": "70091692172",
+      "dataNascimento": "2019-03-14",
+      "email": "luceniosm@hotmail.com",
+      "celular": "67992508872",
+      "password": "123",
+      "id": 1
+    },
+    {
+      "nome": "Lucenio Marques",
+      "cpf": "70091692172",
+      "dataNascimento": "1985-10-15",
+      "email": "luceniosm@hotmail.com",
+      "celular": "67992508872",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "id": 2
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "nome": "Lucenio da Silva Marques",
+      "cpf": "70091692172",
+      "dataNascimento": "1985-10-15",
+      "email": "luceniosm@hotmail.com",
+      "celular": "67992508872",
+      "password": "123456",
+      "id": 5
+    },
+    {
+      "id": 6
+    }
+  ],
+  "loginEsqueceu": [
+    {
+      "id": 1,
+      "email": "teste@teste.com.br"
+    },
+    {
+      "email": "lucenio@hotmail.com",
+      "id": 2
+    },
+    {
+      "email": "luceniosm@hotmail.com",
+      "id": 3
+    },
+    {
+      "email": "luceniosm@hotmail.com",
+      "id": 4
+    },
+    {
+      "email": "luceniom@gmail.com",
+      "id": 5
+    }
+  ],
+  "clienteMenu": [
+    {
+      "id": 1,
+      "descricao": "Principal",
+      "icon": "fa fa-home",
+      "link": "cliente/principal"
+    },
+    {
+      "id": 2,
+      "descricao": "Meu Perfil",
+      "icon": "fa fa-pencil",
+      "link": "cliente/meuPerfil"
+    },
+    {
+      "id": 3,
+      "descricao": "Cárdapio",
+      "icon": "fa fa-utensils",
+      "link": "cliente/cardapio"
+    },
+    {
+      "id": 4,
+      "descricao": "Pacote",
+      "icon": "fa fa-pencil",
+      "link": "cliente/pacote"
+    },
+    {
+      "id": 5,
+      "descricao": "Endereço",
+      "icon": "fa fa-map-marker",
+      "link": "cliente/endereco"
+    },
+    {
+      "id": 6,
+      "descricao": "Menu",
+      "icon": "fa fa-file",
+      "link": "cliente/meuPerfil"
+    },
+    {
+      "id": 7,
+      "descricao": "Contato",
+      "icon": "fa fa-envelope",
+      "link": "cliente/contato"
+    },
+    {
+      "id": 8,
+      "descricao": "Alterar Senha",
+      "icon": "fa fa-lock",
+      "link": "cliente/alterarSenha"
+    }
+  ],
+  "alterarSenha": [
+    {
+      "id": 1,
+      "senhaAtual": "123",
+      "senhaNova": "456"
+    },
+    {
+      "id": 2
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": 5
+    },
+    {
+      "id": 6
+    },
+    {
+      "id": 7
+    },
+    {
+      "id": 8
+    },
+    {
+      "id": 9
+    },
+    {
+      "id": 10
+    },
+    {
+      "id": 11
+    },
+    {
+      "id": 12
+    },
+    {
+      "id": 13
+    },
+    {
+      "id": 14
+    },
+    {
+      "id": 15
+    },
+    {
+      "passwordOld": "123456",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "id": 16
+    },
+    {
+      "passwordOld": "123456",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "id": 17
+    },
+    {
+      "passwordOld": "123456",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "id": 18
+    }
+  ]
+}

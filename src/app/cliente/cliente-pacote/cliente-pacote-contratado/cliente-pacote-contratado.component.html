@@ -1,0 +1,43 @@
+<div *ngIf="pacotesContratados">
+  <div class="row justify-content-md-center">
+    <div class="col-md-4 p-2" *ngFor="let pct of pacotesContratados">
+      <div class="card pb-0 h-100 shadow-lg">
+        <div class="card-body">
+          <h5 class="card-title">{{pct.titulo}}</h5>
+          <ul class="list-unstyled">
+            <li>
+              <h6>Item(s) contratado(s)</h6>
+              <ul *ngFor="let it of pct.itensContratados">
+                {{it.quantidade}} - {{it.descricaoItem}}
+              </ul>
+            </li>
+            <li *ngIf="pct.nomeEntregador">
+              <h6>Contato Entregador</h6>
+              <ul>
+                {{pct.nomeEntregador}} - {{pct.telefoneEntregador}}
+              </ul>
+            </li>
+            <li>
+              <h6>Renovação Automatica</h6>
+              <ul>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="{{pct.idContratacaoPacote}}" (change)="alterarEstado(pct)" [checked]="pct.lgRevonacaoAutomatica">
+                  <label class="custom-control-label" for="{{pct.idContratacaoPacote}}"></label>
+                </div>
+              </ul>
+            </li>
+            <br>
+          </ul>
+        </div>
+        <div class="card-footer bg-transparent border-0">
+          <span (click)="selecionarPacote(pct.idContratacaoPacote)" role="button">
+            <h6>Selecionar dias <i class="az-ico-calendario cp fw"></i></h6>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3" *ngIf="pacotesContratados !== undefined && pacotesContratados.length === 0">
+    <alert type="info" class="text-center"><span>Nenhum pacote em andamento disponível!</span></alert>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container pt-5 mt-5">
+  <form [formGroup]="meuPerfilForm" (ngSubmit)="atualizarPerfil()">
+    <div class="form-row">
+      <div class="form-group col-12 col-md-12 col-xl-12">
+        <label  for="nome">Nome</label>
+        <input type="text" id="nome" formControlName="nome" class="form-control" aria-describedby="nome"
+          placeholder="Digite o nome" required />
+        <small id="nomelHelp" *ngIf="isFieldInvalid('nome')" class="form-text text-muted">Este campo é
+          obrigatório!</small>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-4 col-xl-4">
+        <label  for="cpfCnpj">CPFCNPJ</label>
+        <input type="text" id="cpfCnpj" formControlName="cpfCnpj" class="form-control" aria-describedby="cpfCnpj"
+          appDesabilitarInputForm [disableControl]="true" placeholder="Digite o seu CPF / CNPJ" mask="CPF_CNPJ"
+          required />
+        <small id="cpfCnpjHelp" *ngIf="isFieldInvalid('cpfCnpj')" class="form-text text-muted">Este campo é
+          obrigatório!</small>
+      </div>
+      <div class="form-group col-12 col-md-4 col-xl-4">
+        <label  for="dataNascimento">Data de Nascimento</label>
+        <input type="date" id="dataNascimento" formControlName="dataNascimento" class="form-control"
+          aria-describedby="dataNascimento" placeholder="Digite data Nascimento" required />
+        <small id="dataNascimentoHelp" *ngIf="isFieldInvalid('dataNascimento')" class="form-text text-muted">Este
+          campo é obrigatório!</small>
+      </div>
+      <div class="form-group col-12 col-md-4 col-xl-4">
+        <label  for="celular">Telefone</label>
+        <input type="tel" id="celular" formControlName="celular" class="form-control" aria-describedby="celular"
+          placeholder="Digite seu celular" mask="(00) 00000-0000" required />
+        <small id="celularHelp" *ngIf="isFieldInvalid('celular')" class="form-text text-muted">Este campo é
+          obrigatório!</small>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-12 col-xl-12">
+        <label  for="email">E-mail</label>
+        <input type="email" id="email" formControlName="email" class="form-control" aria-describedby="email"
+          appDesabilitarInputForm [disableControl]="true" placeholder="Digite seu email" required />
+        <small id="emailHelp" *ngIf="isFieldInvalid('email')" class="form-text text-muted">Este campo é
+          obrigatório!</small>
+      </div>
+    </div>
+    <div class="form-row justify-content-end pb-5">
+      <div class="col-12 col-md-2 col-xl-2">
+        <button class="btn btn-dark btn-block" type="submit" id="btnNovoCliente" [disabled]="!meuPerfilForm.valid" >
+          Salvar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

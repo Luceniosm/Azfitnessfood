@@ -1,0 +1,121 @@
+<app-login-titulo class="titulo" [titulo]="'NOVO CADASTRO'"></app-login-titulo>
+<div class="container mt-5 pt-3 pb-4">
+  <form [formGroup]="loginCadastroForm" (ngSubmit)="confirmar()">
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" formControlName="nome" class="form-control" aria-describedby="nome"
+        placeholder="Informe o seu nome completo" required />
+      <small id="nomelHelp" *ngIf="isFieldInvalid('nome')" class="form-text text-muted">
+        Este campo é
+        obrigatório!
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend ">
+          <span class="input-group-text bg-transparent border-right-0">
+            <i class="fa fa-at" aria-hidden="true"></i>
+          </span>
+        </div>
+        <input type="email" id="email" formControlName="email" class="form-control  border-left-0"
+          aria-describedby="email" placeholder="Digite o seu e-mail a ser cadastrado" required />
+      </div>
+      <small id="emailHelp" *ngIf="isFieldInvalid('email')" class="form-text text-muted">
+        Este campo é obrigatório!
+      </small>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="cpfCnpj">CPF/CNPJ</label>
+        <input type="text" id="cpf" formControlName="cpfCnpj" class="form-control" aria-describedby="cpfCnpj"
+          placeholder="Digite o seu cpf/Cnpj" mask="CPF_CNPJ" required />
+        <small id="cpfCnpjHelp" *ngIf="isFieldInvalid('cpfCnpj')" class="form-text text-muted">
+          Este campo é
+          obrigatório!
+        </small>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="email">Telefone</label>
+        <input type="tel" id="celular" formControlName="celular" class="form-control" aria-describedby="celular"
+          placeholder="Digite o seu número de celular" mask="(00) 00000-0000" required />
+        <small id="celularHelp" *ngIf="isFieldInvalid('celular')" class="form-text text-muted">
+          Este campo é
+          obrigatório!
+        </small>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="dtNascimento">Data de Nascimento</label>
+        <input type="text" id="dtNascimento" formControlName="dtNascimento" class="form-control" [dropSpecialCharacters]="false" mask="d0/M0/0000"
+          aria-describedby="dtNascimento" placeholder="Digite a sua Data de Nascimento" required />
+        <small id="dtNascimento" *ngIf="isFieldInvalid('dtNascimento')" class="form-text text-muted">
+          Este
+          campo é obrigatório!
+        </small>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="password">Senha</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend ">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+          <input [type]="hide ? 'password' : 'text'" id="password" formControlName="password"
+            class="form-control input-group border-left-0 border-right-0" aria-describedby="password"
+            placeholder="Informe uma senha" required />
+          <div class="input-group-append">
+            <span class="input-group-text bg-transparent border-left-0">
+              <a (click)="hide = !hide">
+                <i class="fa fa-eye-slash" *ngIf="hide" aria-hidden="true"></i>
+                <i class="fa fa-eye" *ngIf="!hide" aria-hidden="true"></i>
+              </a>
+            </span>
+          </div>
+        </div>
+        <small id="passwordHelp" *ngIf="isFieldInvalid('password')" class="form-text text-muted">A senha informada deve
+          possuir no mínimo seis caracteres!</small>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="confirmPassword">Confirme a sua senha</label>
+        <div class="input-group">
+          <div class="input-group-prepend ">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+          <input [type]="hide2 ? 'password' : 'text'" type="password" id="confirmPassword"
+            formControlName="confirmPassword" class="form-control border-left-0  border-right-0"
+            aria-describedby="confirmPassword" placeholder="Confirme a senha" required />
+          <div class="input-group-append">
+            <span class="input-group-text bg-transparent border-left-0">
+              <a (click)="hide2 = !hide2">
+                <i class="fa fa-eye-slash" *ngIf="hide2" aria-hidden="true"></i>
+                <i class="fa fa-eye" *ngIf="!hide2" aria-hidden="true"></i>
+              </a>
+            </span>
+          </div>
+        </div>
+        <small id="ConfirmPasswordHelp" class="form-text text-muted">
+          <span *ngIf="isFieldInvalid('confirmPassword')">
+            Por favor confirme a senha
+            <br>
+          </span>
+          <span *ngIf="loginCadastroForm.controls['confirmPassword'].errors?.ConfirmPassword">
+            Senha não confere!
+          </span>
+        </small>
+      </div>
+    </div>
+    <div class="form-row justify-content-end pb-5">
+      <div class="col-md-4">
+        <button id="btnConfirmarCadastro" [disabled]="!loginCadastroForm.valid" type="submit"
+          class="btn btn-dark btn-block">
+          Confirmar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

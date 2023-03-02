@@ -1,0 +1,76 @@
+<div class="form-row">
+  <div class="form-group col-md-12 text-center">
+    <h4 class="mb-1">{{titulo}}</h4>
+  </div>
+</div>
+<hr>
+<div *ngIf="mostrarListagemCategoria">
+  <div *ngIf="categorias.length > 0">
+    <div class="shadow-lg p-3 mb-3 bg-white rounded"
+      *ngFor="let item of categorias | paginate: { id:'categoria', itemsPerPage: 5, currentPage: categoriaContador }; let i = index;">
+      <div class="row">
+        <div class="col-md-10">
+          <span class="h6">
+            <strong>{{item.descricao}}</strong>
+          </span>
+          <span class="d-block">
+            <span class="badge rounded-pill bg-secondary text-white mr-2">
+              {{item.lgAtivo ? "Ativo" : "Destivado"}}
+            </span>
+            <span class="badge rounded-pill bg-secondary text-white mr-2">
+              Ordem: {{item.ordem + 1}}
+            </span>
+            <span class="badge rounded-pill bg-secondary text-white mr-2" *ngFor="let complemento of item.complementos">
+              {{complemento.descricao}} - {{complemento.valor | currency:'BRL'}}
+            </span>
+          </span>
+        </div>
+        <div class="col-md-2 text-right">
+          <div class="btn-group" dropdown>
+            <button id="button-animated" dropdownToggle type="button"
+              class="btn btn-outline-dark btn-sm dropdown-toggle" aria-controls="dropdown-animated">
+              Opções <span class="caret"></span>
+            </button>
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" (click)="editarCategoria(item)" href="javascript:void(0)">
+                  <i class="fa fa-pencil mx-2"></i>
+                  Editar
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="item.idCategoriaDoPacote === guid">
+                <a class="dropdown-item" (click)="excluirCategoriaDoPacote(i)" href="javascript:void(0)">
+                  <i class="fa fa-trash-o mx-2"></i>
+                  Excluir
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <pagination-controls *ngIf="categorias.length > 5" id="categoria" previousLabel="Anterior" nextLabel="Próximo"
+        (pageChange)="categoriaContador = $event">
+      </pagination-controls>
+    </div>
+  </div>
+</div>
+<div *ngIf="!mostrarListagemCategoria">
+  <app-admin-pacote-categoria-cadastro
+    (voltarEmite)="voltarListagem()"
+    (adicionarNaListagemEmit)="adicionarCategoriaNaListagem($event)"
+    (alterarTituloEmite)="alterarTituloEmite($event)"
+    [idPacote]="idPacote"
+    (salvarPacoteEmit)="adicionarCategoriaNaListagem($event)">
+  </app-admin-pacote-categoria-cadastro>
+</div>
+
+<div class="form-row justify-content-end pb-5" *ngIf="mostrarListagemCategoria">
+  <div class="col-12 col-md-2 col-xl-2">
+    <button class="btn btn-dark btn-block" id="btnAdicionarCategoria" id="btnAdicionarCategoria" (click)="novo()">
+      Novo
+    </button>
+  </div>
+</div>

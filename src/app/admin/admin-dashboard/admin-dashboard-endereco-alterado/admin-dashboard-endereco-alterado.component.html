@@ -1,0 +1,47 @@
+<div class="card mb-3">
+  <h5 class="card-header">
+    Endereços Alterados
+    <span class="float-right">
+      <a href="javascript:void(0)" (click)="obterEnderecosAlterados()"><i class="fa fa-refresh fa-fw"></i></a>
+      <a href="javascript:void(0)" (click)="downloadClientesComEnderecoAlterado()"><i
+          class="fa fa-download fa-fw"></i></a>
+    </span>
+  </h5>
+  <div class="card-body" style="height: 400px;">
+    <div class="row justify-content-md-center" *ngIf="!enderecos">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="table-responsive-md" *ngIf="enderecos">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th class="text-center">Hora</th>
+            <th class="text-center">De</th>
+            <th class="text-center">Para</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of enderecos | paginate: { id:'endereco', itemsPerPage: 5, currentPage: enderecoContador }">
+            <td>{{item.nome}}</td>
+            <td class="text-center">{{item.horaAlterada}}</td>
+            <td class="text-center">{{item.de}}</td>
+            <td class="text-center">{{item.para}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <pagination-controls *ngIf="enderecos?.length > 5" id="endereco" previousLabel="Anterior" nextLabel="Próximo"
+          (pageChange)="enderecoContador = $event"></pagination-controls>
+      </div>
+    </div>
+    <div *ngIf="enderecos?.length === 0" class="text-center">
+      <span>
+        <alert type="info">Nenhum endereço alterado.</alert>
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div *ngIf="!mostrarListagemComplemento">
+  <form [formGroup]="categoriaForm">
+    <div class="form-row">
+      <div class="form-group col-8">
+        <label for="descricaoCategoria">Descrição</label>
+        <input type="text" class="form-control" id="descricaoCategoria" formControlName="descricao">
+      </div>
+      <div class="form-group col-4 col-md-4 col-xd-4">
+        <label for="ordem">Ordem</label>
+        <select class="form-control" id="ordem" formControlName="ordem">
+          <option value="" disabled>Escolha uma opção</option>
+          <option *ngFor="let ordem of ordens" [ngValue]="ordem">
+            {{ordem + 1}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-10 col-xd-10">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="chkAtivoCategoria" formControlName="lgAtivo">
+          <label class="custom-control-label" for="chkAtivoCategoria">Ativo</label>
+        </div>
+      </div>
+      <div class="form-group col-12 col-md-8 col-xd-8">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="chkOpcionalCategoria" formControlName="lgOpcional">
+          <label class="custom-control-label" for="chkOpcionalCategoria">Opcional</label>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 col-xl-4">
+        <button class="btn btn-dark btn-block" id="btnAdicionarComplemento" id="btnAdicionarComplemento"
+          (click)="adicionarComplemento()">
+          Complementos
+        </button>
+      </div>
+    </div>
+    <br>
+    <div *ngIf="categoriaForm.get('complementos').value.length > 0">
+      <hr>
+      <div class="shadow-lg p-3 mb-3 bg-white rounded"
+        *ngFor="let item of categoriaForm.get('complementos').value | paginate: { id:'complemento', itemsPerPage: 3, currentPage: complementoListagem }; let i = index;">
+        <div class="row">
+          <div class="col-md-10">
+            <span class="h6">
+              <strong>{{item.descricao}}</strong>
+            </span>
+            <span class="d-block">
+              <span class="badge rounded-pill bg-secondary text-white mr-2" >
+                {{item.lgAtivo ? "Ativo" : "Destivado"}}
+              </span>
+              <span class="badge rounded-pill bg-secondary text-white mr-2">
+                {{item.valor | currency:'BRL'}}
+              </span>
+              <span class="badge rounded-pill bg-secondary text-white mr-2" *ngFor="let adicional of item.adicionais">
+                {{adicional.descricao}} - {{adicional.valor | currency:'BRL'}}
+              </span>
+            </span>
+          </div>
+          <div class="col-md-2 text-right">
+            <div class="btn-group" dropdown>
+              <button id="button-animated" dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle"
+                aria-controls="dropdown-animated">
+                Opções <span class="caret"></span>
+              </button>
+              <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+                aria-labelledby="button-animated">
+                <li role="menuitem">
+                  <a class="dropdown-item" (click)="editarComplemento(item)" href="javascript:void(0)">
+                    <i class="fa fa-pencil mx-2"></i>
+                    Editar
+                  </a>
+                </li>
+                <li role="menuitem" *ngIf="item.idComplementoDaCategoria === guid">
+                  <a class="dropdown-item" (click)="excluirComplemento(item)" href="javascript:void(0)">
+                    <i class="fa fa-trash-o mx-2"></i>
+                    Excluir
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <pagination-controls *ngIf="categoriaForm.get('complementos').value.length > 3" id="complemento" previousLabel="Anterior" nextLabel="Próximo"
+          (pageChange)="complementoListagem = $event">
+        </pagination-controls>
+      </div>
+    </div>
+    <hr>
+    <div class="form-row justify-content-end pb-5">
+      <div class="col-6 col-md-2 col-xl-2">
+        <button id="btnSalvar" [disabled]="!categoriaForm.valid" class="btn btn-dark btn-block"
+          (click)="salvar()">Salvar</button>
+      </div>
+      <div class="col-6 col-md-2 col-xl-2">
+        <button id="btnVoltar" type="submit" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div *ngIf="mostrarListagemComplemento">
+ <app-admin-pacote-categoria-complemento
+ (alterarTituloEmite)="alterarTitulo($event)"
+ (voltarCategoriaEmit)="voltarCategoria()"
+ (salvarComplementoEmit)="salvarComplemento($event)"
+ ></app-admin-pacote-categoria-complemento>
+</div>

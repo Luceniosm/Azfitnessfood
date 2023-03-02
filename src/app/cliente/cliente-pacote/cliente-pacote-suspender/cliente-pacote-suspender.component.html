@@ -1,0 +1,41 @@
+<div class="container pt-2 pb-5">
+  <div id="grid-listagem" *ngIf="exibirListagem">
+    <app-cliente-pacote-contratado (selecionarPacoteEmitter)="selecionarPacote($event)"
+      (pacotesContratadosEmitter)="carregarPacotesContratados($event)" [lgCarregarContracaoDiario]="false">
+    </app-cliente-pacote-contratado>
+  </div>
+  <div *ngIf="!exibirListagem">
+    <app-shared-wizard [steps]="steps"></app-shared-wizard>
+  </div>
+  <div id="solicita-suspnsao" #clientePacoteSupenderEtapaEnum
+    *ngIf="!exibirListagem && clientePacoteSupenderEtapaEnum.selecionarSuspensao === etapaSelecionada">
+    <div class="col-md-12 text-center mb-3">
+      Clique para selecionar os dia que deseje suspender.
+    </div>
+    <app-cliente-pacote-suspender-calendario [idContratacaoPacote]="idContratacaoPacote"
+      (selecioneEtapaEmite)="selecioneEtapaEmite($event)" (voltarListagemEmite)="voltarListagemEmite()"
+      (dataSelecionadaEmite)="dataSelecionadaEmite($event)">
+    </app-cliente-pacote-suspender-calendario>
+  </div>
+  <div id="solicita-antecipacao" #clientePacoteSupenderEtapaEnum
+    *ngIf="!exibirListagem && clientePacoteSupenderEtapaEnum.concluir === etapaSelecionada">
+    <div class="row justify-content-md-center text-center pb-5">
+      <div class="col col-xl-6 col-lg-6 col-md-12">
+        <h4>Suspensão confirmada com sucesso</h4>
+        <hr>
+        <div class="row justify-content-md-center" *ngFor="let data of datasSelecionadas">
+          <div class="col col-md-4 text-center"><b>Data Selecionada: </b></div>
+          <div class="col col-md-4 text-center">{{data | date: 'dd/MM/yyyy'}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-md-center pb-5">
+      <div class="col col-md-4">
+        <button id="btnVoltarListagemAntecipacao" type="submit" (click)="voltarListagemEmite()"
+          class="btn btn-dark btn-block">
+          Voltar para listagem
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

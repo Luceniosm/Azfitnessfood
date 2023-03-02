@@ -1,0 +1,82 @@
+<div class="container mt-5 pt-5 pb-5 mb-5">
+  <form [formGroup]="clienteForm">
+    <div class="form-row">
+      <div class="form-group col-12 col-md-4 col-xd-4">
+        <label for="nomeCliente">Nome</label>
+        <input id="nomeCliente" type="text" class="form-control" formControlName="nome" placeholder="Nome do cliente">
+      </div>
+      <div class="form-group col-12 col-md-4 col-xd-4">
+        <label for="emailCliente">Email</label>
+        <input id="emailCliente" type="email" class="form-control" formControlName="email"
+          placeholder="Email do cliente">
+      </div>
+      <div class="form-group col-12 col-md-4 col-xd-4">
+        <label for="emailCliente">Telefone</label>
+        <input id="telefoneCliente" type="text" class="form-control" formControlName="telefone" mask="(00) 00000-0000"
+          placeholder="telefone do cliente">
+      </div>
+    </div>
+    <div class="form-row justify-content-end">
+      <div class="col-4 col-md-2 col-xl-2 mb-2">
+        <button class="btn btn-dark btn-block" id="btnBuscarCliente" (click)="listar()">Buscar</button>
+      </div>
+      <div class="col-4 col-md-2 col-xl-2 mb-2">
+        <button class="btn btn-dark btn-block" id="btnNovoCliente" (click)="novo()">Novo</button>
+      </div>
+      <div class="col-4 col-md-2 col-xl-2 mb-2">
+        <button class="btn btn-dark btn-block" id="btnLimparCliente" (click)="limpar()">Limpar</button>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="clientes">
+    <div class="shadow-lg p-3 mb-3 bg-white rounded"
+      *ngFor="let item of clientes | paginate: { id:'cliente', itemsPerPage: 5, currentPage: contadorDelistagem }">
+      <div class="row">
+        <div class="col-md-10">
+          <span class="h6">
+            <strong>{{item.nome}}</strong>
+          </span>
+          <span class="d-block">
+            <span class="badge rounded-pill bg-secondary text-white">
+              Email: {{item.email}}
+            </span> &nbsp;
+            <span class="badge rounded-pill bg-secondary text-white">
+              Telefone: {{item.telefone | mask: "(00) 00000-0000"}}
+            </span><br>
+            <span class="badge rounded-pill bg-secondary text-white">
+              Principal: {{item.enderecoPrincipal}}
+            </span>
+          </span>
+        </div>
+        <div class="col-md-2 text-right">
+          <div class="btn-group" dropdown>
+            <button id="button-animated" dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle"
+              aria-controls="dropdown-animated">
+              Opções <span class="caret"></span>
+            </button>
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" (click)="editar(item.idUsuario)" href="javascript:void(0)">
+                  <i class="fa fa-pencil mx-2"></i>
+                  Editar
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" (click)="direcionarAcaoCliente(item.idUsuario, item.nome)" href="javascript:void(0)">
+                  <i class="az-ico-pacote mx-2"></i>
+                  Pacotes
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <pagination-controls *ngIf="clientes.length > 5" id="cliente" previousLabel="Anterior" nextLabel="Próximo"
+        (pageChange)="contadorDelistagem = $event">
+      </pagination-controls>
+    </div>
+  </div>
+</div>

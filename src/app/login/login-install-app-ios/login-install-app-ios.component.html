@@ -1,0 +1,12 @@
+<div id="prompt_ios" class="animated bounceInDown" *ngIf="isIos">
+  <div class="prompt_app_icon"><img src="assets/img/logo.png"></div>
+  <p class="tit_prompt">Instale o Nosso Aplicativo</p>
+  <p class="txt_prompt">Clique em <img
+      src="data:image/svg+xml;base64,
+    PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJDYXBhXzEiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDU1MS4xMyA1NTEuMTMiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTUxLjEzIDU1MS4xMyIgd2lkdGg9IjUxMiI+PGc+PHBhdGggZD0ibTQ2NS4wMTYgMTcyLjIyOGgtNTEuNjY4djM0LjQ0NmgzNC40NDZ2MzEwLjAxMWgtMzQ0LjQ1N3YtMzEwLjAxMWgzNC40NDZ2LTM0LjQ0NmgtNTEuNjY5Yy05LjUyIDAtMTcuMjIzIDcuNzAzLTE3LjIyMyAxNy4yMjN2MzQ0LjQ1NmMwIDkuNTIgNy43MDMgMTcuMjIzIDE3LjIyMyAxNy4yMjNoMzc4LjkwMmM5LjUyIDAgMTcuMjIzLTcuNzAzIDE3LjIyMy0xNy4yMjN2LTM0NC40NTZjMC05LjUyLTcuNzAzLTE3LjIyMy0xNy4yMjMtMTcuMjIzeiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBkYXRhLW9sZF9jb2xvcj0iIzAwMDAwMCIgc3R5bGU9ImZpbGw6IzNDN0RGRiI+PC9wYXRoPjxwYXRoIGQ9Im0yNTguMzQyIDY1LjkzMXYyNDQuMDhoMzQuNDQ2di0yNDQuMDhsNzMuOTM3IDczLjkzNyAyNC4zNTQtMjQuMzU0LTExNS41MTQtMTE1LjUxNC0xMTUuNTE0IDExNS41MTQgMjQuMzU0IDI0LjM1NHoiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmaWxsOiMzQzdERkYiPjwvcGF0aD48L2c+IDwvc3ZnPg==">
+    e depois em <strong>"Adicionar à Tela de Início"</strong></p>
+  <div class="btns_promt">
+    <p class="btn_prompt" id="btn_agoranao" (click)="fecharOpcaoInstall()">AGORA NÃO</p>
+    <p class="btn_prompt" id="btn_nunca" (click)="nuncaMais()">NÃO MOSTRAR NOVAMENTE</p>
+  </div>
+</div>

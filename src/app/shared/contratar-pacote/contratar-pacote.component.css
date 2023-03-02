@@ -1,0 +1,19 @@
+@media (min-width: 992px) {
+  .fix {
+    width: 31% !important;
+    position: fixed !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .fixAdmin {
+    width: 24% !important;
+    position: fixed !important;
+  }
+}
+
+.fix {
+  width: 100%;
+  position: inherit;
+}
+

@@ -1,0 +1,110 @@
+<div class="form-row">
+  <div class="form-group col-md-12 text-center">
+    <h4 class="mb-1">Contratos</h4>
+  </div>
+</div>
+<hr />
+<div *ngIf="!visualizarPedidos && !visualizarContrato && !visualizarNovoContrato">
+  <div *ngIf="contratos">
+    <div class="shadow-lg p-3 mb-3 bg-white rounded"
+      *ngFor="let item of contratos | paginate: { id:'contrato', itemsPerPage: 5, currentPage: contratoContador }">
+      <div class="row">
+        <div class="col-md-10">
+          <span class="h6">
+            <strong>{{item.descricaoPacote}}</strong>
+          </span>
+          <span class="d-block">
+            <span class="badge rounded-pill bg-secondary text-white mr-2" *ngIf="item.pedidos.length > 0">
+              {{periodo(item.pedidos)}}
+            </span>
+            <span class="badge rounded-pill bg-secondary text-white mr-2">
+              Quantidade: {{item.quantidade}}
+            </span>
+            <span class="badge rounded-pill bg-secondary text-white">
+              Valor Pago: {{item.valor | currency:'BRL'}}
+            </span><br>
+            <span class="badge rounded-pill bg-secondary text-white">
+              Entregador: {{item.nomeEntregador ? item.nomeEntregador : " - "}}
+            </span> &nbsp;
+            <span class="badge rounded-pill bg-danger text-white" *ngIf="item.lgCancelado">
+              Cancelado
+            </span>
+          </span>
+        </div>
+        <div class="col-md-2 text-right">
+          <div class="btn-group" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-dark btn-sm  dropdown-toggle"
+              aria-controls="dropdown-basic">
+              Opções <span class="caret"></span>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)"
+                  (click)="carregarPedidos(item.pedidos, item.descricaoPacote, item.idContratacaoPacote)">
+                  <i class="fa fa-calendar mx-2"></i>
+                  Pedidos
+                </a>
+              </li>
+              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)"
+                  (click)="carregarContrato(item.idPacote, item.idContratacaoPacote)">
+                  <i class="fa fa-pencil mx-2"></i>
+                  Editar
+                </a>
+              </li>
+              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)" *ngIf="!item.lgCancelado"
+                  (click)="confirmarCancelamento(item.idContratacaoPacote)">
+                  <i class="fa fa-close mx-2"></i>
+                  Cancelar
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <pagination-controls *ngIf="contratos.length > 5" id="contrato" previousLabel="Anterior" nextLabel="Próximo"
+        (pageChange)="contratoContador = $event">
+      </pagination-controls>
+    </div>
+    <hr>
+    <div class="form-row justify-content-end pb-5">
+      <div class="col-6 col-md-2 col-xl-2">
+        <button class="btn btn-dark btn-block" type="submit" id="btnNovoContrato" (click)="novoContrato()">
+          Novo Contrato
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="visualizarPedidos">
+  <div class="form-group col-md-12 text-center">
+    <h4 class="mb-1">{{descricaoPedido}}</h4>
+  </div>
+  <app-admin-cliente-contrato-pedido [pedidos]="pedidos" [idContratacaoPacote]="idContratacaoPacote">
+  </app-admin-cliente-contrato-pedido>
+  <hr>
+  <div class="form-row justify-content-end pb-5">
+    <div class="col-6 col-md-2 col-xl-2">
+      <button class="btn btn-dark btn-block" type="submit" id="btnVoltar" (click)="voltar()">
+        Voltar
+      </button>
+    </div>
+  </div>
+</div>
+<div *ngIf="visualizarContrato">
+  <br>
+  <app-admin-cliente-contrato-cadastro [pacote]="pacote" [contrato]="contrato" [formasDePagamento]="formasDePagamento" (voltarEmit)="voltar()">
+  </app-admin-cliente-contrato-cadastro>
+</div>
+<div *ngIf="visualizarNovoContrato">
+<app-contratar-pacote [cssFormaPagamento]="'fixAdmin'"></app-contratar-pacote>
+<hr>
+  <div class="form-row justify-content-end pb-5">
+    <div class="col-6 col-md-2 col-xl-2">
+      <button class="btn btn-dark btn-block" type="submit" id="btnVoltar" (click)="voltar()">
+        Voltar
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.relatorio_fonte {
+  font-size: 14px;
+}
+.pageBreakBefore {
+  page-break-before: always;
+}
+.pageBreakChild {
+  page-break-after: always;
+}
+.pageBreakInside {
+  display: block;
+  page-break-inside: avoid !important;
+}
+
+@media print {
+  .pageBreakInside {
+    display: block;
+    page-break-inside: avoid !important;
+  } /* page-break-after works, as well */
+}

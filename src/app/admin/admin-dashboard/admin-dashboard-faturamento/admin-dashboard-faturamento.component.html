@@ -1,0 +1,95 @@
+<div class="card mb-3">
+  <h5 class="card-header">
+    Faturamento
+    <span class="float-right">
+      <a href="javascript:void(0)" (click)="obterFaturamento()"><i class="fa fa-refresh fa-fw"></i></a>
+      <a href="javascript:void(0)" (click)="downloadFaturamento()"><i class="fa fa-download fa-fw"></i></a>
+    </span>
+  </h5>
+  <div class="card-body">
+    <div class="row justify-content-md-center" *ngIf="barChartData.length < 1">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="row" *ngIf="barChartData.length > 0">
+      <div class="col-md-3">
+        <div class="row pb-2 pt-2">
+          <div class="col-md-12">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Diario</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{faturamento.valorDiario | currency:'BRL'}}</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa fa-usd fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row pb-2">
+          <div class="col-md-12">
+            <div class="card border-left-success shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Semanal</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{faturamento.valorSemanal | currency:'BRL'}}</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa fa-usd fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row pb-2">
+          <div class="col-md-12">
+            <div class="card border-left-info shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Mensal</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{faturamento.valorMensal | currency:'BRL'}}</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa fa-usd fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row pb-2">
+          <div class="col-md-12">
+            <div class="card border-left-warning shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Anual</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{faturamento.valorAnual | currency:'BRL'}}</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa fa-usd fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div style="display: block;">
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [chartType]="barChartType" height="15vh" width="40vw">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

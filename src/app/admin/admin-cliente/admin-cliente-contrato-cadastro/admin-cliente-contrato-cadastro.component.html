@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-sm-12 col-md-8  col-xd-12">
+    <div *ngFor="let categoria of pacote.categorias">
+      <h5 class="card-title text-center">{{categoria.descricao}}</h5>
+      <hr>
+      <div *ngFor="let complemento of categoria.complementos">
+        <div class="row">
+          <div class="col-8">
+            <b>{{complemento.descricao}}</b>
+            <div *ngIf="complemento.valor > 0">
+              <small class="text-secondary align-top">
+                Valor: {{complemento.valor | currency:'BRL'}}
+              </small>
+            </div>
+          </div>
+          <div class="col-4 text-right mb-2">
+            <small>
+              <button class="btn btn-dark rounded p-1"
+                (click)="decrementarComplemento(complemento, categoria.complementos)">
+                <i class="fa fa-minus" aria-hidden="true"></i>
+              </button>
+              <input type="text" aria-label="Small" class="col-3 p-0 border-0 text-center bg-transparent" value="0"
+                [disabled]="true" aria-describedby="inputGroup-sizing-sm"
+                [(ngModel)]="complemento.quantidadeSelecionada">
+              <button class="btn btn-dark rounded p-1"
+                (click)="incrementarComplemento(complemento, categoria.complementos)">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </small>
+          </div>
+        </div>
+        <div class="row" *ngFor="let itemDoComplemento of itensAtivos(complemento.itensDoComplemento)">
+          <div class="col-8">
+            {{itemDoComplemento.descricao}}
+          </div>
+          <div class="col-4 text-right mb-2">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="{{itemDoComplemento.idItemDoComplemento}}"
+                [checked]="itemDoComplemento.check" (change)="itemDoComplemento.check = $event.target.checked">
+              <label class="custom-control-label"
+                for="{{itemDoComplemento.idItemDoComplemento}}">{{itemDoComplemento.valor
+                | currency:'BRL'}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="contratoForm">
+      <div>
+        <h5 class="card-title text-center">Informações de entrega</h5>
+        <dl class="row">
+          <dt class="col-8">Retirar</dt>
+          <dd class="col-4 text-right">
+            <div class="custom-control custom-radio">
+              <input type="radio" name="formaDeEntrega" class="custom-control-input" id="chkTaxaIsenta"
+                [checked]="contrato.lgRetiradaLocal" (change)="contratoForm.get('taxaDeEntrega').setValue(0)">
+              <label class="custom-control-label" for="chkTaxaIsenta"> R$ 0,00</label>
+            </div>
+          </dd>
+        </dl>
+        <dl class="row">
+          <dt class="col-8">Receber</dt>
+          <dd class="col-4 text-right">
+            <div class="custom-control custom-radio">
+              <input type="radio" name="formaDeEntrega" class="custom-control-input"
+                [checked]="!contrato.lgRetiradaLocal"
+                (change)="contratoForm.get('taxaDeEntrega').setValue(pacote.taxaDeEntrega)" id="chkTaxa">
+              <label class="custom-control-label" for="chkTaxa">{{pacote.taxaDeEntrega |
+                currency:'BRL'}}</label>
+            </div>
+          </dd>
+
+        </dl>
+      </div>
+      <hr>
+      <div>
+        <h5 class="card-title text-center">Opção de Pagamento</h5>
+        <select class="custom-select my-1 col-12" id="slididFormaDePagamento" formControlName="idFormaDePagamento"  (change)="selecionarForma()">
+          <option>Escolha uma opção</option>
+          <option *ngFor="let forma of formasDePagamento" [ngValue]="forma.idFormaDePagamento">
+            {{forma.descricao}}
+          </option>
+        </select>
+        <div class="alert alert-warning text-center" *ngIf="observacaoFormaDePagamento" role="alert">
+          {{observacaoFormaDePagamento}}
+        </div>
+      </div>
+      <hr>
+      <div>
+        <h5 class="card-title text-center">Observação</h5>
+        <textarea class="form-control" id="observacoes" rows="3" formControlName="observacao"
+          placeholder="Descreva se possui alguma restrição alimentar"></textarea>
+      </div>
+      <hr>
+    </form>
+  </div>
+  <div class="col-sm-12 col-md-4  col-xd-12" *ngIf="!editar">
+    <div class="fix">
+      <div>
+        <h5 class="card-title text-center">Total</h5>
+        <div class="row">
+          <div class="col-6 font-weight-bold">SubTotal</div>
+          <div class="col-6 text-right">{{calcularSubTotal() | currency:'BRL'}}</div>
+        </div>
+        <div class="row">
+          <div class="col-6 font-weight-bold">Adicional</div>
+          <div class="col-6 text-right">{{calcularAdicional() | currency:'BRL'}}</div>
+        </div>
+        <div class="row">
+          <div class="col-6 font-weight-bold">Taxa de entrega</div>
+          <div class="col-6 text-right">{{contratoForm.get('taxaDeEntrega').value | currency:'BRL'}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 font-weight-bold">Taxa do Cartão: </div>
+          <div class="col-6 text-right">{{calcularFormaDePagamento() | currency:'BRL'}}</div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-6 text-truncate font-weight-bold">Total</div>
+          <div class="col-6 text-right">{{calcularTotal() | currency:'BRL'}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 text-truncate font-weight-bold">Renovar Automatico</div>
+          <div class="col-6 text-right">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="lgRevonacaoAutomatica"
+                formControlName="lgRevonacaoAutomatica" [checked]="contrato.lgRevonacaoAutomatica">
+              <label class="custom-control-label" for="lgRevonacaoAutomatica"></label>
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="form-row justify-content-end pb-5">
+  <div class="col-6 col-md-2 col-xl-2">
+    <button id="btnAtualizar" (click)="validarItensObrigatorios()" [disabled]="!contratoForm.valid"
+      class="btn btn-dark btn-block">Salvar</button>
+  </div>
+  <div class="col-6 col-md-2 col-xl-2">
+    <button id="btnVoltar" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+  </div>
+</div>

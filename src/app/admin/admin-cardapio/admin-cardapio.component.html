@@ -1,0 +1,98 @@
+<div class="container mt-5 pt-3 pb-5 mb-3">
+  <form [formGroup]="cardapioForm">
+    <div class="form-row">
+      <div class="form-group col-12 col-md-8 col-xd-8">
+        <label  for="descricao">Descrição</label>
+        <input type="text" class="form-control" id="descricao" placeholder="Descrição">
+      </div>
+      <div class="form-group col-12 col-md-2 col-xd-2">
+        <label  for="periodo">Período</label>
+        <input type="date" id="periodo" formControlName="dtPedidoIni" class="form-control" aria-describedby="data"
+        placeholder="Período" />
+      </div>
+      <div class="form-group col-12 col-md-2 col-xd-2">
+        <label  for="periodo-a">à</label>
+        <input type="date" id="periodo-a" formControlName="dtPedidoFim" class="form-control" aria-describedby="data"
+        placeholder="Período" />
+      </div>
+    </div>
+
+    <div class="form-row justify-content-end">
+      <div class="col-6 col-md-2 col-xl-2 mb-2">
+        <button class="btn btn-dark btn-block" (click)="listarCardapio()">Buscar</button>
+      </div>
+      <div class="col-6 col-md-2 col-xl-2 mb-2">
+        <button class="btn btn-dark btn-block" (click)="initForm()">Limpar</button>
+      </div>
+    </div>
+    <hr>
+
+    <div *ngIf="cardapios">
+      <div class="shadow-lg p-3 mb-3 bg-white rounded"
+        *ngFor="let item of cardapios | paginate: { id:'cardapio', itemsPerPage: 5, currentPage: contadorDelistagem }">
+        <div class="row">
+          <div class="col-md-10">
+            <span class="h6">
+              <strong>{{item.titulo}}</strong>
+            </span>
+            <span class="d-block">
+              <span class="badge rounded-pill bg-secondary text-white mr-2">
+                {{item.descricao}}
+              </span><br>
+              <span class="badge rounded-pill bg-secondary text-white mr-2">
+                {{item.dataPedido | date: 'dd/MM/yyyy'}}
+              </span>
+              <span class="badge rounded-pill bg-secondary text-white mr-2">
+                Ordem: {{item.ordem}}
+              </span>
+              <span class="badge rounded-pill bg-secondary text-white mr-2" *ngFor="let tag of item.tags">
+                {{tag}}
+              </span>
+            </span>
+          </div>
+          <div class="col-md-2 text-right">
+            <div class="btn-group" dropdown>
+              <button id="button-animated" dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle"
+                aria-controls="dropdown-animated">
+                Opções <span class="caret"></span>
+              </button>
+              <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+                aria-labelledby="button-animated">
+                <li role="menuitem">
+                  <a class="dropdown-item" (click)="editar(item.idCardapio)" href="javascript:void(0)">
+                    <i class="fa fa-pencil mx-2"></i>
+                    Editar
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" (click)="copiar(item.idCardapio)" href="javascript:void(0)">
+                    <i class="fa fa-copy mx-2"></i>
+                    Copiar
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" (click)="confirmarExclusao(item.idCardapio)" href="javascript:void(0)">
+                    <i class="fa fa-trash mx-2"></i>
+                    Excluir
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <pagination-controls *ngIf="cardapios.length > 5" id="cardapio" previousLabel="Anterior" nextLabel="Próximo"
+          (pageChange)="contadorDelistagem = $event">
+        </pagination-controls>
+      </div>
+    </div>
+    <hr>
+    <div class="form-row justify-content-end">
+      <div class="col-12 col-md-2 col-xl-2">
+        <button class="btn btn-dark btn-block" type="submit" id="btnAdicionaCardapio" (click)="novo()">Novo</button>
+      </div>
+    </div>
+  </form>
+</div>
+

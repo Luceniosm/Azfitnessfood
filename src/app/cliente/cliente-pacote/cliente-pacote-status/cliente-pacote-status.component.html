@@ -1,0 +1,105 @@
+<div class="container pt-2 pb-5">
+  <div id="grid-listagem" *ngIf="exibirListagem">
+    <app-cliente-pacote-contratado
+     (selecionarPacoteEmitter)="selecionarPacote($event)"
+     (pacotesContratadosEmitter)="carregarPacotesContratados($event)"
+     [lgCarregarContracaoDiario]="true">
+    </app-cliente-pacote-contratado>
+  </div>
+  <div *ngIf="!exibirListagem">
+    <div class="row">
+      <div class="col-md-12 text-center mb-3">
+        Detalhes do pacote
+      </div>
+      <div class="col-md-12 text-center pb-5">
+        <bs-datepicker-inline #date Picker="bsDatepickerInline" [dateCustomClasses]="datasMarcadas" [minDate]="minDate"
+          [maxDate]="maxDate" [bsConfig]="bsConfig" [datesDisabled]="datasDesabilitadas">
+        </bs-datepicker-inline>
+        <div class="container">
+          <div class="row justify-content-md-center pl-4">
+            <div class="col col-xl-2 col-lg-6 col-md-12 text-left">
+              <span class="badge badge-secondary text-secondary">
+                0
+              </span>
+              Datas
+            </div>
+            <div class="col col-xl-2 col-lg-6 col-md-12 text-left">
+              <span class="badge badge-warning text-warning">
+                0
+              </span>
+              Suspensos
+            </div>
+          </div>
+          <div class="row justify-content-md-center pl-4">
+            <div class="col col-xl-2 col-lg-6 col-md-12 text-left">
+              <span class="badge badge-info text-info">
+                0
+              </span>
+              Antecipados
+            </div>
+            <div class="col col-xl-2 col-lg-6 col-md-12 text-left">             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-md-center text-center pb-5">
+      <div class="col col-xl-6 col-lg-6 col-md-12">
+        <hr>
+        <div class="row justify-content-md-center">
+          <div class="col col-md-4 text-center"><b>Data Inicio: </b></div>
+          <div class="col col-md-4 text-center">{{minDate | date: 'dd/MM/yyyy'}}</div>
+        </div>
+        <div class="row justify-content-md-center">
+          <div class="col col-md-4 text-center"><b>Data Fim: </b></div>
+          <div class="col col-md-4 text-center">{{maxDate | date: 'dd/MM/yyyy'}}</div>
+        </div>
+
+        <div *ngIf="dadosStatus?.suspensos?.length > 0">
+          <hr>
+          <h6><b>Suspensos</b></h6>
+          <div class="row justify-content-md-center" *ngFor="let item of dadosStatus.suspensos">
+            <div class="col col-md-4 text-center"><b>Data: </b></div>
+            <div class="col col-md-4 text-center">{{item | date: 'dd/MM/yyyy'}}</div>
+          </div>
+        </div>
+        <div *ngIf="dadosStatus?.antecipados?.length > 0">
+          <hr>
+          <h6><b>Antecipados</b></h6>
+          <div class="row justify-content-md-center" *ngFor="let item of dadosStatus.antecipados">
+            <div class="col col-md-4 text-center"><b>Data: </b></div>
+            <div class="col col-md-4 text-center">{{item | date: 'dd/MM/yyyy'}}</div>
+          </div>
+        </div>
+        <hr>
+        <h6><b>Observações</b></h6>
+        <div class="row justify-content-md-center">
+          <div class="col col-md-8 text-center">
+             <span  *ngIf="show">{{observacao}}</span>
+            <br>
+            <textarea id="descricao" class="form-control" rows="3"  [ngModel]="observacao" (ngModelChange)="onChangeObservacao($event)" *ngIf="!show"></textarea>
+            <br>
+            <a href="javascript:void(0)" (click)="show = !show" >
+              <span *ngIf="show">Editar</span>
+              <span *ngIf="!show" (click)="salvarObservacao()">Salvar</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-cols-2 justify-content-center pb-5">
+      <div class="col col-md-4 col-lg-2">
+        <button id="btnVoltarListagemAntecipacao" type="submit" (click)="voltarListagem()"
+          class="btn btn-dark btn-block">
+          Voltar
+        </button>
+      </div>
+      <div class="col col-md-4 col-lg-2" *ngIf="dadosStatus.lgPermissaoParaCancelar">
+        <button id="btnContinuarProximaEtapa" type="submit" (click)="confirmarCancelamento()"
+          class="btn btn-dark btn-block">
+          Cancelar Pacote
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

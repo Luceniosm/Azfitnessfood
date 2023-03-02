@@ -1,0 +1,24 @@
+<full-calendar
+  #calendario
+  defaultView="dayGridMonth"
+  [plugins]="calendarPlugins"
+  [events]="datasCalendario"
+  (dateClick)="handleDateClick($event, template)"
+  (eventClick)="eventClick($event, template)"
+  locale="pt-br"
+  [buttonText]="{today: 'Hoje'}"
+  [height]="500"
+  [defaultDate]="setData()"
+  [timeZone]="'local'"
+  [timeZoneParam]="'America/Cuiaba'"
+  ></full-calendar>
+<ng-template #template>
+  <app-admin-cliente-contrato-pedido-modal
+  (inserirEmit)="inserirEmit($event)"
+  (excluirEventEmit)="excluirEventEmit()"
+  [dataSelecionada]="dataSelecionada"
+  [pedidoSelecionado]="pedidoSelecionado"
+  [idContratacaoPacote]="idContratacaoPacote"
+  [modalRef]="modalRef"
+  ></app-admin-cliente-contrato-pedido-modal>
+</ng-template>

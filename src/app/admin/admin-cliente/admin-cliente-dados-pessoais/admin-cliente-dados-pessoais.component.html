@@ -1,0 +1,57 @@
+<div class="form-row">
+  <div class="form-group col-md-12 text-center">
+    <h4 class="mb-1">Dados Pessoais</h4>
+  </div>
+</div>
+<hr />
+<div *ngIf="cadastroForm">
+  <form [formGroup]="cadastroForm">
+    <div class="form-row">
+      <div class="col-xl-10 col-md-8 mb-3">
+        <label for="nome">Cliente</label>
+        <input type="text" class="form-control" formControlName="nome" id="nome" placeholder="Nome">
+      </div>
+      <div class="col-xl-2 col-md-4 mb-3">
+        <label for="telefone">Telefone</label>
+        <input type="text" class="form-control" formControlName="telefone" mask="(00) 00000-0000" id="telefone"
+          placeholder="Telefone">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-xl-10 col-md-8 mb-3">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" formControlName="email" id="email" placeholder="Email">
+      </div>
+      <div class="col-xl-2 col-md-4 mb-3">
+        <label for="dataNascimento">Data Nascimento</label>
+        <input type="date" id="dataNascimento" formControlName="dtNascimento" class="form-control"
+          aria-describedby="dataNascimento" required />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-xl-10 col-md-8 mb-3">
+        <label for="cpf/cnpj">CPF/CNPJ</label>
+        <input type="text" class="form-control" formControlName="cpfCnpj" mask="CPF_CNPJ" id="cpf/cnpj"
+          placeholder="CPF/CNPJ">
+      </div>
+    </div>
+  </form>
+  <hr />
+  <div class="form-row justify-content-end pb-5">
+    <div class="col-6 col-md-2 col-xl-2">
+      <button class="btn btn-dark btn-block" type="submit" id="btnResetPassword" (click)="resetPassword()">
+        Resetar Senha
+      </button>
+    </div>
+    <div class="col-6 col-md-2 col-xl-2">
+      <button class="btn btn-dark btn-block" type="submit" id="btnSalvar" (click)="salvar()" [disabled]="!cadastroForm.valid">
+        Salvar
+      </button>
+    </div>
+    <div class="col-6 col-md-2 col-xl-2">
+      <button class="btn btn-dark btn-block" type="submit" id="btnVoltar" (click)="voltar()">
+        Voltar
+      </button>
+    </div>
+  </div>
+</div>

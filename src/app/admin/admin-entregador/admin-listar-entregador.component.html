@@ -1,0 +1,66 @@
+<div class="container mt-5 pt-5 pb-3">
+  <form [formGroup]="form">
+    <div class="form-row">
+      <div class="form-group col-12 col-md-8 col-xd-8">
+        <label  for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" formControlName="nome" placeholder="Nome do entergador">
+      </div>
+      <div class="form-group col-12 col-md-4 col-xd-4">
+        <label  for="placa">Placa</label>
+        <input type="text" class="form-control" id="placa" formControlName="placa" placeholder="SSS-0000"
+          mask="SSS-0000">
+      </div>
+    </div>
+    <div class="form-row justify-content-end">
+      <div class="col-6 col-md-2 col-xl-2 mb-2">
+        <button class="btn btn-dark btn-block" (click)="listar()">Buscar</button>
+      </div>
+      <div class="col-6 col-md-2 col-xl-2 mb-2">
+        <button class="btn btn-dark btn-block" (click)="limpar()">Limpar</button>
+      </div>
+    </div>
+
+    <div class="table-responsive-xl">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th class="w-50" scope="col" sortable="nome" (sort)="ordernar($event)">Nome</th>
+            <th class="text-center" scope="col" sortable="telefone" (sort)="ordernar($event)">Telefone</th>
+            <th class="text-center" scope="col" sortable="placa" (sort)="ordernar($event)">Placa</th>
+            <th class="text-center" scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of entregadores">
+            <td class="align-middle">{{item.nome}}</td>
+            <td class="text-center align-middle">{{item.telefone | mask: "(00) 00000-0000"}}</td>
+            <td class="text-uppercase align-middle text-center">{{item.placa | mask: "SSS-0000"}}</td>
+            <td class="text-nowrap text-center align-middle">
+              <button (click)="editar(item.idEntregador)" type="button" class="btn btn-outline-dark border-0"><i
+                  class="fa fa-pencil mx-2"></i></button>
+              <button (click)="confirmarExclusao(item.idEntregador)" type="button"
+                class="btn btn-outline-dark border-0"><i class="fa fa-trash-o mx-2"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center p-2">
+      <ngb-pagination *ngIf="collectionSize > pageSize" [(collectionSize)]="collectionSize" [(page)]="page"
+        [(pageSize)]="pageSize" [maxSize]="5" [boundaryLinks]="true" (pageChange)="alterarPagina($event)">
+      </ngb-pagination>
+    </div>
+    <div *ngIf="entregadores?.length === 0" class="text-center">
+      <span>
+        <alert type="info">Nenhum entregador cadastrado.</alert>
+      </span>
+    </div>
+    <div class="form-row justify-content-end">
+      <div class="col-12 col-md-2 col-xl-2">
+        <button class="btn btn-dark btn-block" type="submit" id="btnNovoEntregador" (click)="novo()">
+          Novo
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

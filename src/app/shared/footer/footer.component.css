@@ -1,0 +1,28 @@
+.footer {
+  position: fixed!important;
+  z-index: 99999;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+ a:link {
+  color: pink;
+}
+/* A link that has been visited */
+a:visited {
+  color: white;
+}
+/* A link that is hovered on */
+a:hover {
+  color: red;
+}
+/* A link that is selected */
+a:active {
+  color: green;
+}

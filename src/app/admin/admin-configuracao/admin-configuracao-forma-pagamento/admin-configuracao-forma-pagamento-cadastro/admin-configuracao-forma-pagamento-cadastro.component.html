@@ -1,0 +1,62 @@
+<form [formGroup]="formaDePagamentoForm">
+  <div class="form-row">
+    <div class="col-xl-12 col-md-8 mb-3">
+      <label for="nome">Descrição</label>
+      <input type="text" class="form-control" formControlName="descricao" id="descricao" placeholder="Descrição">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-xl-12 col-md-8 mb-3">
+      <label for="telefone">Observação</label>
+      <textarea id="observacao" class="form-control" formControlName="observacao" rows="3"></textarea>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-xl-2 col-md-4 mb-3">
+      <label for="telefone">Acréscimo</label>
+      <div class="input-group">
+        <input type="text" class="form-control" formControlName="porcentagemDeAcrescimo" id="acrescimo"
+          placeholder="Acréscimo">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-row">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="lgAnexo" formControlName="lgAnexo" [checked]="formaDePagamentoForm.value.lgAnexo">
+      <label class="custom-control-label" for="lgAnexo">Anexo</label>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="lgAtivo" formControlName="lgAtivo" [checked]="formaDePagamentoForm.value.lgAtivo">
+      <label class="custom-control-label" for="lgAtivo">Ativo</label>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="loja" formControlName="loja" [checked]="formaDePagamentoForm.value.loja">
+      <label class="custom-control-label" for="loja">Loja</label>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="contrato" formControlName="contrato" [checked]="formaDePagamentoForm.value.contrato">
+      <label class="custom-control-label" for="contrato">Contrato</label>
+    </div>
+  </div>
+</form>
+<hr />
+<div class="form-row justify-content-end pb-5">
+  <div class="col-6 col-md-2 col-xl-2">
+    <button id="btnAtualizar" (click)="cadastrar()" [disabled]="!formaDePagamentoForm.valid"
+      class="btn btn-dark btn-block">Salvar</button>
+  </div>
+  <div class="col-6 col-md-2 col-xl-2">
+    <button id="btnVoltar" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+  </div>
+</div>

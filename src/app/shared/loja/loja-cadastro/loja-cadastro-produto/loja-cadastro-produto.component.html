@@ -1,0 +1,56 @@
+<div class="form-row">
+  <div class="form-group col-md-12 text-center">
+    <h4 class="mb-1">Produtos</h4>
+  </div>
+</div>
+<hr />
+<div *ngIf="visualizarListagem">
+  <div *ngIf="produtos">
+    <div class="shadow-lg p-3 mb-3 bg-white rounded"
+      *ngFor="let item of produtos | paginate: { id:'produto', itemsPerPage: 5, currentPage: contadorListagem }">
+      <div class="row">
+        <div class="col-md-10">
+          <span class="h6">
+            <strong>{{item.titulo}}</strong>
+          </span>
+          <span class="d-block">
+            <span class="badge rounded-pill bg-secondary text-white mr-2">
+              Marca: {{item.marca}}
+            </span><br>
+            <span class="badge rounded-pill bg-secondary text-white mr-2">
+              Quantidade Disponivel: {{item.quantidadeDisponivel}}
+            </span>
+            <span class="badge rounded-pill bg-secondary text-white mr-2">
+              Valor: {{item.valor | currency:'BRL'}}
+            </span>
+            <span class="badge rounded-pill bg-secondary text-white mr-2">
+              Ativo: {{item.ativo? "Sim": "Não"}}
+            </span>
+          </span>
+        </div>
+        <div class="col-md-2 text-right">
+          <a href="javascript:void(0)" (click)="editar(item)">
+            Editar
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <pagination-controls *ngIf="produtos.length > 5" id="produto" previousLabel="Anterior" nextLabel="Próximo"
+        (pageChange)="contadorListagem = $event">
+      </pagination-controls>
+    </div>
+    <hr>
+    <div class="form-row justify-content-end pb-5">
+      <div class="col-6 col-md-2 col-xl-2">
+        <button class="btn btn-dark btn-block" type="submit" id="btnFormaDePagamento" (click)="novoProduto()">
+          Novo
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!visualizarListagem">
+  <app-loja-cadastro-produto-cadastro [produto]="produto" (visualizarListagemEmit)="visualizarListagemEmit()">
+  </app-loja-cadastro-produto-cadastro>
+</div>

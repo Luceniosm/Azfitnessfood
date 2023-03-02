@@ -1,0 +1,40 @@
+<div class="container mt-5 pt-5 pb-3">
+  <div *ngFor="let endereco of enderecos" class="shadow-lg p-3 mb-5 bg-white rounded d-flex">
+    <div class="m-auto">
+      <span class="col-2 az-ico-endereco display-4"></span>
+    </div>
+    <div class="mr-1 w-75 az-size-line" (click)="editar(endereco)"  role="button">
+      <span><b>{{endereco.descricao}}</b></span>
+      <br>
+      <span>
+        {{endereco.logradouro}}, {{endereco.numero}}
+        <br [hidden]="endereco.complemento === '' "> {{endereco.complemento}}
+        <br [hidden]="endereco.pontoReferencia === '' "> {{endereco.pontoReferencia}}
+        <br>
+        {{endereco.bairro}}
+        <br>
+        {{endereco.cidade}}/{{endereco.uf}}
+      </span>
+    </div>
+    <div class="m-auto">
+      <input type="checkbox" [checked]="endereco.lgPrincipal" [disabled]="!(enderecos.length > 1 && !endereco.lgPrincipal)"
+        (click)="confirmarAlteracao(endereco.idUsuarioEndereco)">
+    </div>
+    <div>
+      <span class="az-ico-fechar" (click)="confirmarExclusao(endereco.idUsuarioEndereco)"></span>
+    </div>
+  </div>
+
+  <div *ngIf="enderecos.length == 0" class="text-center">
+    <alert type="info"><span>Nenhum endereço cadastrado.</span></alert>
+  </div>
+
+  <div class="form-row justify-content-end pb-5">
+    <div class="col-12 col-md-2 col-xl-2">
+      <button class="btn btn-dark btn-block" id="btnAdicionarEndereço"
+        [routerLink]="['cadastro']">
+        Adicionar endereço
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row mt-5 d-print-none">
+    <div class="col-12">
+      <div *ngIf="entregas?.length === 0" class="alert alert-dark text-center">
+        <span>
+          <h5>Nenhuma entrega cadastrada.</h5>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-end pb-5 d-print-none">
+    <div class="col-6 col-md-2 col-xl-2">
+      <button type="submit" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+    </div>
+    <div class="col-6 col-md-2 col-xl-2">
+      <button type="submit" (click)="imprimir()" class="btn btn-dark btn-block">Imprimir</button>
+    </div>
+  </div>
+  <span class="pageBreakBefore">
+    <div class="row pb-2" *ngFor="let entrega of entregas">
+      <div class=" col col-12">
+        <div class="row">
+          <h6>
+            <b>{{entrega.nomeEntregador}}</b>
+          </h6>
+        </div>
+        <span *ngFor="let cliente of entrega.clientes">
+          <div class="row border-bottom">
+            <div class="col-2 relatorio_fonte pr-0">
+              <small>{{cliente.nomeCliente}}</small>
+            </div>
+            <div class="col-5 relatorio_fonte pr-0 pl-0">
+              <span *ngFor="let complemento of cliente.complementos">
+                <small>
+                  <b>{{complemento.quantidade}}</b>
+                  <b>- {{complemento.descricao}} </b>
+                  <b *ngFor="let item of complemento.itens">
+                    - {{item.descricao}}
+                  </b>
+                  |
+                </small>
+              </span>
+              <span *ngIf="cliente.opcaoCarpadio != null">
+                <small>- <b> Opção: {{cliente.opcaoCarpadio}} </b></small>
+              </span>
+              <span *ngIf="cliente.observacaoPedido != ''">
+                <small>- <b> {{cliente.observacaoPedido}} </b></small>
+              </span>
+              <span *ngIf="cliente.observacaoPacote != ''">
+                <small>- <b> {{cliente.observacaoPacote}} </b></small>
+              </span>
+            </div>
+            <div class="col-1 relatorio_fonte pr-0 pl-0">
+              <small>{{cliente.telefone | mask: "(00) 00000-0000"}}</small>
+            </div>
+            <div class="col-4 relatorio_fonte pr-0 pl-0">
+              <small>{{cliente.endereco}}</small>
+            </div>
+          </div>
+          <div class="row relatorio_fonte" *ngIf="cliente.lgPrimeiroPedido">
+            <div class="col-12">
+              <small>
+                <b>
+                  Valor à receber: {{cliente.valorPagamento | currency:'BRL'}} - Tipo: {{cliente.tipoPacote}} - Forma de
+                  Pagamento: {{cliente.formaPagamento}}
+                </b>
+              </small>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+  </span>
+  <div class="row pt-5 pageBreakBefore">
+    <div class="col col-12 col-md-12" *ngFor="let recibo of recibos">
+      <div class="card mb-1 pageBreakInside">
+        <div class="card-body ">
+          <span class="card-text text-justify">
+            Recebemos do cliente <b>{{recibo.nomeCliente}}</b> a quantia de
+            <b>{{recibo.valorPagamento | currency:'BRL'}}</b>
+            correspondente a contratação do pacote na modalidade
+            <b>{{recibo.tipoPacote}}</b> e
+            para clareza firmamos o presente.
+          </span>
+          <div class="card-text text-right">
+            Campo Grande - MS {{dataHoje }}
+          </div>
+          <hr class="w-50">
+          <div class="card-text text-center">
+            <b>Az Fitness Food - CNPJ 09.479.048/0001-07</b><br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-5 pb-3 d-print-none"></div>
+</div>

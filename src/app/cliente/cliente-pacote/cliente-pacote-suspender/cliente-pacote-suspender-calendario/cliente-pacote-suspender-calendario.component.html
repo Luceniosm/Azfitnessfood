@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-12 text-center pb-5">
+    <bs-datepicker-inline *ngIf="showCalendar"
+    bsDatepicker
+    Picker="bsDatepickerInline"
+    [dateCustomClasses]="datasMarcadas"
+    [bsConfig]="bsConfig"
+    (bsValueChange)="selecionarData($event)"
+    [datesEnabled]="datasHabilitadas">
+    </bs-datepicker-inline>
+    <div class="row justify-content-md-center">
+      <div class="col col-xl-2 col-lg-6 col-md-12">
+        <span class="badge badge-secondary">
+         {{datasMarcadas.length}}
+        </span>
+        - Disponíveis
+      </div>
+      <div class="col col-xl-2 col-lg-6 col-md-12">
+        <span class="badge badge-dark text-white">
+          {{obterDatasSelecionada}}
+        </span>
+        - Selecionado
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col col-xl-2 col-lg-6 col-md-12">
+        <span class="badge badge-info">
+          {{dadosSuspensao?.antecipados?.length}}
+        </span>
+        - Antecipados
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-2 justify-content-center pb-5">
+  <div class="col col-md-4 col-lg-2">
+    <button id="btnVoltarEtapa" (click)="voltar()" type="submit" class="btn btn-dark btn-block">
+      Voltar
+    </button>
+  </div>
+
+  <div class="col col-md-4 col-lg-2">
+    <button id="btnProximaEtapa" [disabled]="!dataSelecionada" (click)="notificarconfirmacaoSuspensao()" type="submit"
+      class="btn btn-dark btn-block">
+      Confirmar
+    </button>
+  </div>
+</div>

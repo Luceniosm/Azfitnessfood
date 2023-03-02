@@ -1,0 +1,59 @@
+<div class="container mt-5 pt-5 pb-3">
+  <form [formGroup]="form">
+    <div class="form-row">
+      <div class="col-md-12 mb-3">
+        <label for="nomeEntregador">Nome</label>
+        <input type="text" class="form-control" formControlName="nome" id="nomeEntregador"
+          placeholder="Informe o nome do Entregador" [ngClass]="{'is-invalid': isValid(form.get('nome'))}">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label for="cpfEntregador">CPF</label>
+        <input type="text" class="form-control" formControlName="cpf" id="cpfEntregador"  mask="000.000.000-00"
+          placeholder="Informe o cpf Entregador" [ngClass]="{'is-invalid': isValid(form.get('nome'))}">
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="dataNascimentoEntregador">Data Nascimento</label>
+        <input type="date" class="form-control" formControlName="dtNascimento" id="dataNascimentoEntregador"
+          placeholder="Digite a sua Data de Nascimento" [ngClass]="{'is-invalid': isValid(form.get('nome'))}">
+      </div>
+      <div class="col-12 col-md-3 col-xl-3 mb-3">
+        <label for="placa">Placa</label>
+        <input type="text" class="form-control" formControlName="placa" id="placa" placeholder="SSS-0000"
+          mask="SSS-0000" [ngClass]="{'is-invalid': isValid(form.get('placa'))}">
+      </div>
+      <div class="col-12 col-md-3 col-xl-3 mb-3">
+        <label for="telefone">Telefone</label>
+        <input type="text" class="form-control" formControlName="telefone" id="telefone" placeholder="(00) 00000-0000"
+          mask="(00) 00000-0000" [ngClass]="{'is-invalid': isValid(form.get('telefone'))}">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="emailEntregador">Login (Primeiro e ultimo nome, Ex: fulano.santos)</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" formControlName="email" placeholder="Login do usuario" aria-label="Login do usuario"
+            aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2">@azfitnessfood.com.br</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="passwordEntregador">Senha</label>
+        <input type="text" class="form-control" formControlName="password" id="passwordEntregador" readonly
+           [ngClass]="{'is-invalid': isValid(form.get('nome'))}">
+      </div>
+    </div>
+    <div class="form-row justify-content-end pb-5">
+      <div class="col-6 col-md-2 col-xl-2">
+        <button id="btnVoltar" type="submit" (click)="voltar()" class="btn btn-dark btn-block">Voltar</button>
+      </div>
+      <div class="col-6 col-md-2 col-xl-2">
+        <button id="btnSalvar" type="submit" (click)="salvar()" class="btn btn-dark btn-block"
+          [disabled]="!form.valid">Salvar</button>
+      </div>
+    </div>
+  </form>
+</div>

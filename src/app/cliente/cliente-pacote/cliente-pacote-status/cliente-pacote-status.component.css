@@ -1,0 +1,334 @@
+/** Wizard CSS start ********************************************/
+.wizard-container{
+    width:100%;
+    margin: 0 auto 20px;
+    
+  }
+  
+  .wizard-container-ul{
+    display: table;
+    padding: 0;
+    margin: 0 auto;
+    list-style: none;
+    width: auto;
+    max-width: 100%;
+  }
+  
+  .wizard-container-li{
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px;
+    width:auto;
+    position: relative;
+    width: 90px;
+    vertical-align: top;
+    
+  }
+  
+  .step-div{
+    text-align: center;
+    
+   }
+  
+  .step-bg{
+    color: #fff;
+    margin-top:4px;
+    display: inline-block;
+    border-radius: 50%;
+    width:32px;
+    height: 32px;
+    display: inline-block;
+    text-align: center;
+    padding-top: 2px;
+    
+  }
+  
+  .step-div:before
+  {
+    display: block;
+    position: absolute;
+    top: 25px;
+    width: 64%;
+    height: 2px;
+    content: '';
+    margin-left: -34px;
+    z-index: 0;
+  }
+  
+  .wizard-container-li:first-child  .step-div:before{   
+  display:none;
+  }
+  
+  .step-body{
+     position: absolute;
+     margin-left: -23px;
+     margin-top: 9px;
+     color:#fff;
+     font-weight: bold;
+     font-size: 14px;
+   }
+  
+  .step-title{
+    font-size: 12px;
+    color: #666;
+    display: block;
+  }
+  
+  
+  
+  /*marker***/
+   .wizard-container-li.marker .step-bg{
+     border-bottom-left-radius: 0;
+     transform: rotate(-45deg);
+     border:1px solid transparent;
+     background-color: #23272b;
+   }
+  
+  /*positive outcome marker style*/
+   .wizard-container-li.marker.positive .step-bg {
+    background-color:#669933
+  }
+  
+   .wizard-container-li.marker.positive .step-body{
+    background-color:#fff;
+    border-radius:50%;
+    width:22px;
+    height:22px;
+    margin-left: -27px;
+    color:#669933;
+    margin-top: 9px;
+    vertical-align: middle;
+    font-size: 15px;
+  }
+   .wizard-container-li.marker.positive .step-title {
+    color:#006633;
+    font-weight: bold;
+  }
+  
+  /*negative outcome marker style*/
+   .wizard-container-li.marker.negative .step-bg {
+    background-color:#EA4300
+  }
+  
+   .wizard-container-li.marker.negative .step-body{
+    background-color:#fff;
+    border-radius:50%;
+    width:22px;
+    height:22px;
+    margin-left: -27px;
+    color:#EA4300;
+    margin-top: 9px;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+  
+   .wizard-container-li.marker.negative .step-title {
+    color:#CC0000;
+    font-weight: bold;
+  }
+   
+  /*onhold marker style*/
+   .wizard-container-li.active.marker.review .step-bg {
+    background-color:#FF9900;
+    border:1px solid #FF9900
+  }
+  
+   .wizard-container-li.active.marker.review .step-body{
+    background-color:#fff;
+    border-radius:50%;
+    width:22px;
+    height:22px;
+    margin-left: -27px;
+    color:#FF9900;
+    margin-top: 9px;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+  
+   .wizard-container-li.active.marker.review .step-title {
+    color:#CC6633;
+    font-weight: bold;
+  }
+  
+  /*line active***/
+  .wizard-container-li.active .step-div:before{
+    border:2px solid #212529;
+    background-color:transparent;
+  }
+  
+  /*line rejected***/
+  .wizard-container-li.rejected .step-div:before{
+    border:2px solid #CC0000;
+    background-color:transparent;
+  }
+  
+  /*line completed***/
+  .wizard-container-li.completed .step-div:before{
+    border:2px solid #669933;
+    background-color:transparent;
+  }
+  .wizard-container-li.completed .step-body{
+    margin-left: -24px;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+  
+  .wizard-container-li.completed .step-bg{
+    background-color: #669933;
+  }
+  
+  /*closed***/
+  
+  .wizard-container-li.closed .step-div:before{
+    border:2px solid #666;
+    background-color:transparent;
+  }
+  .wizard-container-li.closed .step-body{
+    margin-left: -24px;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+  
+  .wizard-container-li.closed .step-bg{
+    background-color: #666;
+  }
+  
+   /*active***/
+  .wizard-container-li.active .step-body{
+    background-color:#fff;
+    border-radius:50%;
+    width:22px;
+    height:22px;
+    margin-left: -27px;
+    color:#23272b;
+    margin-top: 9px;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+  
+  .wizard-container-li.active .step-title{
+    font-weight: bold;
+    color:#23272b;
+    vertical-align: top;
+  }
+  
+  /*disabled***/
+  .wizard-container-li.disabled .step-div:before{
+    background-color:#aaa;
+  }
+  
+  .wizard-container-li.disabled .step-bg{
+    background-color:#aaa;
+    border:1px solid #aaa;
+  }
+  
+  .wizard-container-li.disabled .step-body{
+    color:#666;
+  }
+  
+  /*onhold******/
+  .wizard-container-li.onhold .step-div:before,
+  .wizard-container-li.onhold-border .step-div:before {
+    border:2px dashed #212529;
+    background-color:transparent;
+  }
+  .wizard-container-li.onhold .step-bg{
+    background-color:#23272b;
+    border:1px solid #23272b;
+  }
+  .wizard-container-li.onhold .step-body{
+    color:#fff;
+    margin-left: -23px;
+    font-size: 15px;
+  }
+  .wizard-container-li.onhold .step-title{
+    color:#23272b;
+  }
+  
+  /**rejected **/
+  .wizard-container-li.rejected .step-bg{
+    background-color:#CC0000;
+    border:1px solid #CC0000;
+  } 
+  
+  
+  /**rejected **/
+  .wizard-container-li.alert .step-bg{
+    background-color:#FF9900;
+    border:1px solid #FF9900;
+  } 
+  
+  
+  /* XSM */
+  @media only screen and (max-width: 600px) {
+    .wizard-container-li{
+      width: 50px;
+    }
+  
+    .step-title{
+      font-size: 9px;
+    }
+  
+    .step-div:before
+    {
+      width: 39%;
+      margin-left: -15px;
+    }
+  
+    .wizard-container-li.onhold .step-div:before,
+    .wizard-container-li.onhold-border .step-div:before {
+      border:1.5px solid #212529;
+    }
+  } 
+  /** Wizard CSS end ********************************************/
+
+
+  /***************************** CALENDARIO *****************************/
+  .cal-wrapper{
+   padding: 3;
+   background-color: #fff; 
+  }
+  .custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2.5rem;
+    width: 100%;
+  }
+  .custom-day.focused {
+    background-color: #e6e6e6;
+  }
+  .custom-day.range, .custom-day:hover {
+    background-color: rgb(2, 117, 216);
+    color: white;
+  }
+  .custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+    color: white;
+  }
+  .custom-day.data-suspensa {
+    background-color: #E7C5C5;
+    color: #000;
+  }
+  .custom-day.data-antecipada {
+    background-color: rgba(2, 117, 216, 0.5) !important;
+    color: #000 !important;
+  }
+  .custom-day.data-disponivel {
+    background-color: #C7E6B8;
+    color: #000;
+  }
+  .custom-day.disable {
+    color: #ccc;
+    background: none;
+  }
+  .box-legenda{
+    width: 20px;
+    height: 20px;
+  }
+  .btn-dia-suspensao{
+    background-color: #E7C5C5;
+  }
+  .btn-data-suspensa {
+    background-color: rgba(2, 117, 216, 0.5);
+  }

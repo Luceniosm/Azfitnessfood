@@ -1,0 +1,26 @@
+<div class="container-fluid mt-5 pt-3 pb-5 ">
+  <div class="card shadow-lg mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-produto-list" data-toggle="list"
+              href="#list-produto" role="tab" aria-controls="produto">Produtos</a>
+            <a class="list-group-item list-group-item-action" id="list-categoria-list" data-toggle="list"
+              href="#list-categoria" role="tab" aria-controls="categoria">Categorias</a>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-produto" role="tabpanel" aria-labelledby="list-produto-list">
+              <app-loja-cadastro-produto></app-loja-cadastro-produto>
+            </div>
+            <div class="tab-pane fade" id="list-categoria" role="tabpanel" aria-labelledby="list-categoria-list">
+              <app-loja-cadastro-categoria></app-loja-cadastro-categoria>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

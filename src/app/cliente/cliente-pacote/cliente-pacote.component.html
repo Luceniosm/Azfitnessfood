@@ -1,0 +1,21 @@
+<div class="container mt-5 pt-5 pb-3 p-0">
+  <div class="row justify-content-md-center">
+    <div class="col col-xl-6 col-lg-6 col-md-12">
+      <div class="col-lg-6 offset-lg-3 mb-2 col-sm-12" *ngIf="lgVoltarCadastro">
+        <div class="alert alert-danger text-center"  role="alert">
+          <p>{{nomeCliente}}</p>
+        </div>
+        <div class="form-group">
+          <button type="submit" (click)="voltarCadastroAdmin()" class="form-control">VOLTAR AO CADASTRO</button>
+        </div>
+      </div>
+      <tabset type="pills" justified="true" #staticTabs>
+        <!-- <tab heading="Comprar" (selectTab)="setaTabAtiva($event)" id="comprar"></tab> -->
+        <tab heading="Detalhes" (selectTab)="setaTabAtiva($event)" id="status"></tab>
+        <tab heading="Antecipar" (selectTab)="setaTabAtiva($event)" id="antecipar"></tab>
+        <tab heading="Suspender" (selectTab)="setaTabAtiva($event)" id="suspender"></tab>
+      </tabset>
+    </div>
+  </div>
+  <router-outlet (activate)="carregarTabAtiva($event)"></router-outlet>
+</div>

@@ -1,0 +1,15 @@
+<h5 class="card-title">Resumo</h5>
+<br>
+<dl class="row">
+  <dt class="col-6">{{totalProdutos()}} produto<span *ngIf="totalProdutos() > 1">s</span></dt>
+  <dd class="col-6 text-right">{{valorProdutos() | currency:'BRL'}}</dd>
+</dl>
+<dl class="row" *ngIf="taxa">
+  <dt class="col-6">Taxas</dt>
+  <dd class="col-6 text-right">{{calcularTaxa() | currency:'BRL'}}</dd>
+</dl>
+<hr>
+<dl class="row">
+  <dt class="col-6">Total</dt>
+  <dd class="col-6 text-right">{{valorTotal() | currency:'BRL'}}</dd>
+</dl>

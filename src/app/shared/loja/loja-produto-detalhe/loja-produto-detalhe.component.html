@@ -1,0 +1,85 @@
+<div class="container-fluid mt-5 pt-5 pb-3">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb  bg-transparent">
+      <li class="breadcrumb-item"><a href="javascript:void(0)" [routerLink]="['/home/loja']">Loja</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
+    </ol>
+  </nav>
+  <app-loja-carrinho-item-contador></app-loja-carrinho-item-contador>
+  <div class="card h-100 shadow p-3  bg-white rounded">
+    <div class="row">
+      <div class="col col-sm-12 col-md-6 h-100 pb-4">
+        <carousel [noWrap]="true" [(activeSlide)]="activeSliderId">
+          <slide *ngFor="let img of produto.imagens; let idx = index;">
+            <div class="row justify-content-center">
+              <div class="col-lg-6 col-6">
+                <img class="img-thumbnail img-fluid border-0" src="data:{{img.mimeType}};base64,{{img.imagem}}" alt="">
+              </div>
+            </div>
+          </slide>
+        </carousel>
+        <hr>
+        <ul class="carousel-thumbnail">
+          <li class="carousel-thumbnail__item list-inline-item" *ngFor="let img of produto.imagens; let idx = index;"
+            (click)="setImgSlide(idx)">
+            <a class="selected">
+              <img class="carousel-thumbnail__img" src="data:{{img.mimeType}};base64,{{img.imagem}}">
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-12 col-md-4 h-100">
+        <div class="row-col-12">
+          <h5 class="card-title">{{produto.titulo}}</h5>
+          <hr>
+          <dl class="row">
+            <dt class="col-sm-3">Marca</dt>
+            <dd class="col-sm-9">{{produto.marca}}</dd>
+
+            <dt class="col-sm-3">Peso</dt>
+            <dd class="col-sm-9">{{produto.peso}}</dd>
+
+            <dt class="col-sm-3">Sabor</dt>
+            <dd class="col-sm-9">{{produto.sabor}}</dd>
+          </dl>
+          <hr>
+        </div>
+
+        <div class="row-col-12">
+          <h5 class="card-title">Por: {{produto.valor | currency:'BRL'}}</h5>
+          <hr>
+        </div>
+        <div class="row-col-12">
+          <button type="button" class="btn btn-danger bg-danger col-12" (click)="adicionarProduto(produto)">Adicionar ao
+            Carrinho</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="card h-100 shadow p-4  bg-white rounded mb-5 pb-5">
+    <div class="row">
+      <div class="col col-md-12 h-100">
+        <div class="row">
+          <div class="col-10">
+            <h4> Informações:</h4>
+          </div>
+          <div class="col-2 text-right bg-transparent">
+            <a data-toggle="collapse" data-target="#detalheProduto" aria-expanded="false" aria-controls="detalheProduto"
+              href="javascript:void(0)">
+              <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <h3>
+
+        </h3>
+        <hr>
+        <div class="collapse" id="detalheProduto">
+          <span [innerHTML]="produto.descricao"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>

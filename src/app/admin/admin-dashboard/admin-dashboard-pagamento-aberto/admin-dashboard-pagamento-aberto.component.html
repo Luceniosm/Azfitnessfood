@@ -1,0 +1,56 @@
+<div class="card mb-3">
+  <h5 class="card-header">
+    Pagamentos em Aberto
+    <span class="float-right">
+      <a href="javascript:void(0)" (click)="obterPagamentosAberto()"><i class="fa fa-refresh fa-fw"></i></a>
+      <a href="javascript:void(0)" (click)="downloadPagamentosEmAberto()"><i class="fa fa-download fa-fw"></i></a>
+      <a href="javascript:void(0)" (click)="obterRecibo('00000000-0000-0000-0000-000000000000')"><i
+          class="fa fa-edit fa-fw"></i></a>
+    </span>
+  </h5>
+  <div class="card-body" style="height: 400px;">
+    <div class="row justify-content-md-center" *ngIf="!pagamentosEmAberto">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="table-responsive-md" *ngIf="pagamentosEmAberto">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="text-nowrap">Cliente</th>
+            <th class="text-center">Valor</th>
+            <th class="text-center">Pagamento</th>
+            <th class="text-center">Data</th>
+            <th class="text-center">Contato</th>
+            <th class="text-center">Confirmar</th>
+            <th class="text-center">Recibo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of pagamentosEmAberto | paginate: { id:'pagamentoEmAberto', itemsPerPage: 5, currentPage: contadorDelistagem }">
+            <td>{{item.nomeCliente}}</td>
+            <td class="text-center">{{item.valor | currency:'BRL'}}</td>
+            <td class="text-center">{{item.formaDePagamento}}</td>
+            <td class="text-center">{{item.dataCompraPacote | date: 'dd/MM/yyyy'}}</td>
+            <td class="text-center">{{item.telefone | mask: "(00) 00000-0000"}}</td>
+            <td class="text-center"><a href="javascript:void(0)" (click)="notificarConfirmacaoPagamento(item)"><i
+                  class="fa fa-check"></i></a></td>
+            <td class="text-center"><a href="javascript:void(0)" (click)="obterRecibo(item.idContratacaoPacote)"><i
+                  class="fa fa-edit"></i></a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <pagination-controls *ngIf="pagamentosEmAberto.length > 5" id="pagamentoEmAberto" previousLabel="Anterior"
+          nextLabel="Próximo" (pageChange)="contadorDelistagem = $event"></pagination-controls>
+      </div>
+    </div>
+    <div *ngIf="pagamentosEmAberto && pagamentosEmAberto.length === 0" class="text-center">
+      <span>
+        <alert type="info">Nenhum pagamento aberto.</alert>
+      </span>
+    </div>
+  </div>
+</div>

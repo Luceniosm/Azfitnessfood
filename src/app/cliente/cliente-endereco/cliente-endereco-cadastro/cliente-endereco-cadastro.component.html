@@ -1,0 +1,95 @@
+<div class="container pt-5 mt-3">
+  <form [formGroup]="enderecoCadastroForm" (keydown.enter)="$event.preventDefault()">
+    <div class="form-row">
+      <div class="form-group col-12 col-md-8 col-xl-8">
+        <label for="descricao">Descrição</label>
+        <input type="text" id="descricao" formControlName="descricao" class="form-control" aria-describedby="descricao"
+          placeholder="Digite a descrição do endereço" />
+        <small id="descricaoEnderecoHelp" *ngIf="isFieldInvalid('descricao')" class="form-text text-muted">
+          Este campo é obrigatório!
+        </small>
+      </div>
+      <div class="form-group col-12 col-md-4 col-xl-4">
+        <label for="cep">CEP</label>
+        <div class="input-group">
+          <input type="text" class="form-control" formControlName="cep" placeholder="Cep para buscar" aria-label="Cep"
+            aria-describedby="basic-addon2" mask="00000-000"
+            (keydown.enter)="consultaCep(enderecoCadastroForm.value.cep); false;">
+          <div class="input-group-append">
+            <button class="btn btn-dark" type="button" (click)="consultaCep(enderecoCadastroForm.value.cep)"
+              [disabled]="isFieldInvalid('cep') || enderecoCadastroForm.value.cep.length < 8"
+              (keydown.enter)="consultaCep(enderecoCadastroForm.value.cep); false;"><i
+                class="fa fa-search mx-2"></i></button>
+          </div>
+        </div>
+        <small id="cepHelp" *ngIf="isFieldInvalid('cep')" class="form-text text-muted">
+          Este campo é obrigatório!
+        </small>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-8 col-xl-8">
+        <label for="logradouro">Rua</label>
+        <input type="text" id="logradouro" formControlName="logradouro" class="form-control"
+          aria-describedby="logradouro" placeholder="Digite o nome da Rua" />
+        <small id="logradouroHelp" *ngIf="isFieldInvalid('logradouro')" class="form-text text-muted">
+          Este campo é obrigatório!
+        </small>
+      </div>
+      <div class="form-group col-12 col-md-4 col-xl-4">
+        <label for="numero">Número</label>
+        <input type="text" #numero id="numero" formControlName="numero" class="form-control" aria-describedby="numero"
+          placeholder="Nº" mask="9999" />
+        <small id="numeroHelp" *ngIf="isFieldInvalid('numero')" class="form-text text-muted">
+          Este campo é obrigatório!
+        </small>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-8 col-xl-8">
+        <label for="cidade">Cidade</label>
+        <input type="text" id="cidade" formControlName="cidade" class="form-control" aria-describedby="cidade"
+          placeholder="Digite o nome da cidade" />
+        <small id="cidadeHelp" *ngIf="isFieldInvalid('cidade')" class="form-text text-muted">
+          Este campo é obrigatório!
+        </small>
+      </div>
+      <div class="form-group col-12 col-md-4 col-xl-4">
+        <label for="UF">UF</label>
+        <input type="text" #numero id="uf" formControlName="uf" class="form-control" aria-describedby="UF" mask="SS"
+          placeholder="UF" />
+        <small id="numeroHelp" *ngIf="isFieldInvalid('uf')" class="form-text text-muted">
+          Este campo é obrigatório!
+        </small>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-12 col-xl-12">
+        <label for="bairro">Bairro</label>
+        <input type="text" id="bairro" formControlName="bairro" class="form-control" aria-describedby="bairro"
+          placeholder="Digite o Bairro" />
+        <small id="bairroHelp" *ngIf="isFieldInvalid('bairro')" class="form-text text-muted">
+          Este campo é obrigatório!
+        </small>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-12 col-xl-12">
+        <label for="complemento">Complemento</label>
+        <input type="text" id="complemento" formControlName="complemento" class="form-control"
+          aria-describedby="complemento" placeholder="Digite o complemento do endereço" />
+      </div>
+    </div>
+    <div class="form-row justify-content-end mb-3 pb-5">
+      <div class="col-6 col-md-2 col-xl-2">
+        <button id="btnVoltar" type="submit" (click)="voltar()"  class="btn btn-dark btn-block">Voltar</button>
+      </div>
+      <div class="col-6 col-md-2 col-xl-2">
+        <button class="btn btn-dark btn-block" id="btnConfirmarEndereco" (click)="submit()"
+          [disabled]="!enderecoCadastroForm.valid || submited">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

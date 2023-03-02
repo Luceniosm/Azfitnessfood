@@ -1,0 +1,44 @@
+<div *ngFor="let categoria of categorias">
+  <h5 class="card-title text-center">{{categoria.descricao}}</h5>
+  <hr>
+  <div *ngFor="let complemento of categoria.complementos">
+    <div class="row">
+      <div class="col-8">
+        <span>{{complemento.descricao}}</span>
+        <div *ngIf="complemento.valor > 0">
+          <small class="text-secondary align-top">
+            Valor: {{complemento.valor | currency:'BRL'}}
+          </small>
+        </div>
+      </div>
+      <div class="col-4 text-right mb-2">
+        <small>
+          <button class="btn btn-dark rounded p-1" (click)="decrementarComplemento(complemento)">
+            <i class="fa fa-minus" aria-hidden="true"></i>
+          </button>
+          <input type="text" aria-label="Small" class="col-3 p-0 border-0 text-center bg-transparent" value="0" [disabled]="true"
+            aria-describedby="inputGroup-sizing-sm" [(ngModel)]="complemento.quantidadeSelecionada">
+          <button class="btn btn-dark rounded p-1" (click)="incrementarComplemento(complemento)">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </small>
+      </div>
+
+    </div>
+    <div class="row" *ngFor="let itemDoComplemento of complemento.itensDoComplemento">
+      <div class="col-8">
+        {{itemDoComplemento.descricao}}
+      </div>
+      <div class="col-4 text-right mb-2">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="{{itemDoComplemento.idItemDoComplemento}}"
+          [checked]="itemDoComplemento.check"
+          (change)="itemDoComplemento.check = $event.target.checked">
+          <label class="custom-control-label" for="{{itemDoComplemento.idItemDoComplemento}}">{{itemDoComplemento.valor | currency:'BRL'}}</label>
+        </div>
+      </div>
+    </div>
+    <hr *ngIf="complemento.itensDoComplemento.length > 0">
+  </div>
+  <br>
+</div>
