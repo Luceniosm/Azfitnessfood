@@ -31,6 +31,14 @@
               <small>{{cliente.nomeCliente}}</small>
             </div>
             <div class="col-5 relatorio_fonte pr-0 pl-0">
+              <span *ngIf="cliente.observacaoPedido != '' && cliente.observacaoPedido != null">
+                <small><b> {{cliente.observacaoPedido}} </b></small>
+                |
+              </span>
+              <span *ngIf="cliente.observacaoPacote != '' && cliente.observacaoPacote != null">
+                <small><b> {{cliente.observacaoPacote}} </b></small>
+                |
+              </span>              
               <span *ngFor="let complemento of cliente.complementos">
                 <small>
                   <b>{{complemento.quantidade}}</b>
@@ -43,13 +51,7 @@
               </span>
               <span *ngIf="cliente.opcaoCarpadio != null">
                 <small>- <b> Opção: {{cliente.opcaoCarpadio}} </b></small>
-              </span>
-              <span *ngIf="cliente.observacaoPedido != ''">
-                <small>- <b> {{cliente.observacaoPedido}} </b></small>
-              </span>
-              <span *ngIf="cliente.observacaoPacote != ''">
-                <small>- <b> {{cliente.observacaoPacote}} </b></small>
-              </span>
+              </span>             
             </div>
             <div class="col-1 relatorio_fonte pr-0 pl-0">
               <small>{{cliente.telefone | mask: "(00) 00000-0000"}}</small>
